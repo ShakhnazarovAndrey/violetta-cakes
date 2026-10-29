@@ -5,11 +5,12 @@ interface Props {
   class?: string;
   style?: string;
   parallax?: number;
+  bob?: boolean;
 }
-const { name, class: cls, style, parallax } = Astro.props;
+const { name, class: cls, style, parallax, bob = false } = Astro.props;
 ---
 
-<svg class:list={['decor', cls]} style={style} data-parallax={parallax} viewBox="0 0 100 100" aria-hidden="true">
+<svg class:list={['decor', cls]} style={style} data-parallax={parallax} data-bob={bob ? '' : undefined} viewBox="0 0 100 100" aria-hidden="true">
   {name === 'strawberry' && (
     <g>
       <path d="M50 92C22 76 12 52 18 38c6-14 22-16 32-12 10-4 26-2 32 12 6 14-4 38-32 54z" fill="#e23a55"></path>

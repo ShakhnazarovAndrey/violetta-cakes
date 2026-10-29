@@ -1,7 +1,6 @@
 ---
 import { site } from '../data/site';
 import Icon from './Icon.astro';
-import Monogram from './Monogram.astro';
 import Doodle from './Doodle.astro';
 import Decor from './Decor.astro';
 
@@ -43,7 +42,6 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="footer">
-      <span class="footer__mono"><Monogram /></span>
       <span>© {year} {site.brand} Cake · {site.role}</span>
       <a href="#top">наверх ↑</a>
     </div>
@@ -94,7 +92,6 @@ const year = new Date().getFullYear();
     display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
     padding: 28px 4px 8px; font-size: var(--fs-small); color: var(--ink-soft);
   }
-  .footer__mono { width: 40px; color: var(--berry); }
   .footer a { color: var(--berry); text-decoration: none; }
 
   @media (max-width: 600px) {

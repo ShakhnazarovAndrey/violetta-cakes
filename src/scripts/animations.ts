@@ -103,9 +103,17 @@ function init() {
     });
   });
 
-  // десерт месяца мягко покачивается
-  $$('[data-float]').forEach((el) =>
-    gsap.to(el, { y: -14, rotate: -4, duration: 3, ease: 'sine.inOut', yoyo: true, repeat: -1 }),
+  // ягоды в hero едва заметно покачиваются (на небольшую амплитуду, чтобы не заезжать на текст)
+  $$('[data-bob]').forEach((el) =>
+    gsap.to(el, {
+      y: gsap.utils.random(-9, 9),
+      x: gsap.utils.random(-5, 5),
+      duration: gsap.utils.random(2.6, 4.2),
+      ease: 'sine.inOut',
+      yoyo: true,
+      repeat: -1,
+      delay: gsap.utils.random(0, 1.5),
+    }),
   );
 
   // лёгкий 3D-наклон карточек начинок за курсором (только мышь)

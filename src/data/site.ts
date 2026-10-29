@@ -5,7 +5,7 @@ export const site = {
   brand: 'Violetta',
   name: 'Виолетта',
   role: 'домашний кондитер',
-  city: 'Москва',
+  city: 'Санкт-Петербург',
   delivery: 'Доставка по городу или самовывоз',
   tagline: 'Торты и десерты ручной работы из натуральных продуктов — для праздников и просто так',
   url: 'https://violetta-cakes.vercel.app',

@@ -1,6 +1,6 @@
 ---
 // Бегущая бордовая лента с монограммой между секциями.
-import Monogram from './Monogram.astro';
+import Decor from './Decor.astro';
 interface Props { words?: string[]; reverse?: boolean; tilt?: number; }
 const { words = ['торты на заказ', 'бенто', 'с любовью'], reverse = false, tilt = -2 } = Astro.props;
 ---
@@ -12,7 +12,7 @@ const { words = ['торты на заказ', 'бенто', 'с любовью'
         {[...words, ...words].map((w, i) => (
           <>
             <span class:list={['band__word', { 'band__word--ghost': i % 2 }]}>{w}</span>
-            <span class="band__mono"><Monogram /></span>
+            <span class="band__mono"><Decor name={i % 3 === 0 ? 'strawberry' : i % 3 === 1 ? 'raspberry' : 'cherry'} /></span>
           </>
         ))}
       </div>
@@ -31,7 +31,8 @@ const { words = ['торты на заказ', 'бенто', 'с любовью'
   .band__set { display: flex; align-items: center; gap: clamp(18px, 2.4vw, 32px); padding-right: clamp(18px, 2.4vw, 32px); }
   .band__word { font-size: clamp(1.4rem, 3vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; white-space: nowrap; }
   .band__word--ghost { color: transparent; -webkit-text-stroke: 1.2px var(--rose-soft); }
-  .band__mono { width: clamp(32px, 3.4vw, 46px); flex: none; color: var(--rose-soft); }
+  .band__mono { width: clamp(28px, 3vw, 40px); flex: none; }
+  .band__mono :global(.decor) { position: static; width: 100%; }
   @keyframes band { to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .band__track { animation: none; } }
 </style>

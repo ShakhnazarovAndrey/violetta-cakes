@@ -1,6 +1,5 @@
 ---
 import { site, nav } from '../data/site';
-import Monogram from './Monogram.astro';
 import Doodle from './Doodle.astro';
 import Decor from './Decor.astro';
 import { Image } from 'astro:assets';
@@ -8,6 +7,32 @@ import portrait from '../assets/portrait.jpg';
 import Icon from './Icon.astro';
 
 const letters = site.brand.toUpperCase().split('');
+
+// Ягоды живут только в пустых зонах: между меню и текстом, в центре между текстом и фото,
+// в верхней строке. Координаты — доли карточки; m* — для телефона (m: false — скрыть).
+type Berry = {
+  n: 'strawberry' | 'blueberry' | 'raspberry' | 'cherry' | 'leaf' | 'sparkle';
+  x: string; y: string; w: string; r: string;
+  mx?: string; my?: string; mw?: string; m?: boolean;
+};
+const berries: Berry[] = [
+  { n: 'strawberry', x: '8%',  y: '47%', w: 'clamp(54px, 6.2vw, 96px)', r: '-14deg', mx: '4%',  my: '1.2%', mw: '34px' },
+  { n: 'blueberry',  x: '24%', y: '48%', w: 'clamp(24px, 2.6vw, 40px)', r: '0deg',   mx: '90%', my: '56%',  mw: '24px' },
+  { n: 'raspberry',  x: '37%', y: '47%', w: 'clamp(40px, 4.6vw, 70px)', r: '18deg',  mx: '76%', my: '57%',  mw: '32px' },
+  { n: 'cherry',     x: '46%', y: '45%', w: 'clamp(46px, 5.4vw, 82px)', r: '-8deg',  mx: '40%', my: '1.4%', mw: '32px' },
+  { n: 'leaf',       x: '17%', y: '57%', w: 'clamp(34px, 4vw, 62px)',   r: '30deg',  mx: '16%', my: '1.2%', mw: '28px' },
+  { n: 'sparkle',    x: '31%', y: '53%', w: 'clamp(18px, 1.8vw, 28px)', r: '0deg',   mx: '29%', my: '2.4%', mw: '16px' },
+  { n: 'strawberry', x: '56%', y: '69%', w: 'clamp(40px, 4.4vw, 68px)', r: '22deg',  mx: '2%',  my: '76%',  mw: '32px' },
+  { n: 'blueberry',  x: '62%', y: '80%', w: 'clamp(22px, 2.4vw, 36px)', r: '0deg',   mx: '90%', my: '84%',  mw: '22px' },
+  { n: 'raspberry',  x: '54%', y: '89%', w: 'clamp(34px, 3.8vw, 58px)', r: '-16deg', mx: '88%', my: '91%',  mw: '30px' },
+  { n: 'sparkle',    x: '64%', y: '74%', w: 'clamp(16px, 1.6vw, 24px)', r: '0deg',   m: false },
+  { n: 'cherry',     x: '66%', y: '1.5%', w: 'clamp(30px, 3.2vw, 48px)', r: '12deg', m: false },
+  { n: 'leaf',       x: '40%', y: '2%',   w: 'clamp(26px, 2.8vw, 42px)', r: '-24deg', m: false },
+  { n: 'strawberry', x: '4%',  y: '59%', w: 'clamp(28px, 3.2vw, 48px)', r: '-20deg', mx: '3%', my: '90%', mw: '28px' },
+  { n: 'blueberry',  x: '55%', y: '2.5%', w: 'clamp(20px, 2.2vw, 32px)', r: '0deg',  m: false },
+  { n: 'raspberry',  x: '75%', y: '1.5%', w: 'clamp(30px, 3.2vw, 48px)', r: '10deg', m: false },
+  { n: 'leaf',       x: '42%', y: '59%', w: 'clamp(26px, 2.8vw, 42px)', r: '48deg',  m: false },
+];
 ---
 
 <header class="hero" id="top">
@@ -17,7 +42,6 @@ const letters = site.brand.toUpperCase().split('');
       <Doodle variant="loop" class="hero__doodle hero__doodle--b" />
 
       <div class="hero__top">
-        <a href="#top" class="hero__mono" aria-label={site.brand}><Monogram /></a>
         <span class="hero__meta">{site.role} · {site.city}</span>
         <a href="#contacts" class="btn hero__cta-top">Заказать</a>
       </div>
@@ -46,11 +70,14 @@ const letters = site.brand.toUpperCase().split('');
         </div>
       </div>
 
-      <Decor name="strawberry" class="hero__berry hero__berry--1" parallax={-0.25} />
-      <Decor name="blueberry" class="hero__berry hero__berry--2" parallax={0.2} />
-      <Decor name="raspberry" class="hero__berry hero__berry--3" parallax={-0.15} />
-      <Decor name="sparkle" class="hero__berry hero__berry--4" />
-      <Decor name="leaf" class="hero__berry hero__berry--5" parallax={0.3} />
+      {berries.map((b, i) => (
+        <Decor
+          name={b.n}
+          bob
+          class:list={['hero__berry', { 'hero__berry--no-m': b.m === false }]}
+          style={`--x:${b.x};--y:${b.y};--w:${b.w};--r:${b.r};--mx:${b.mx ?? b.x};--my:${b.my ?? b.y};--mw:${b.mw ?? b.w}`}
+        />
+      ))}
     </div>
   </div>
 </header>
@@ -76,7 +103,6 @@ const letters = site.brand.toUpperCase().split('');
   .hero__doodle--b { width: 40%; height: 70%; right: -8%; bottom: -14%; }
 
   .hero__top { position: relative; z-index: 2; display: flex; align-items: center; gap: 16px; }
-  .hero__mono { width: 52px; color: var(--berry); flex: none; }
   .hero__meta { font-size: var(--fs-small); color: var(--ink-soft); letter-spacing: 0.04em; text-transform: lowercase; }
   .hero__cta-top { margin-left: auto; min-height: 44px; padding: 0.6em 1.3em; }
 
@@ -127,12 +153,7 @@ const letters = site.brand.toUpperCase().split('');
   .hero__note { position: absolute; top: 40px; left: -150px; font-size: 1.7rem; color: var(--berry); transform: rotate(-8deg); }
   .hero__note-arrow { position: absolute; top: 76px; left: -64px; width: 70px; height: 54px; }
 
-  .hero__berry { z-index: 1; }
-  .hero__berry--1 { width: clamp(56px, 7vw, 96px); top: 22%; right: 6%; transform: rotate(18deg); }
-  .hero__berry--2 { width: clamp(30px, 3.5vw, 48px); top: 58%; left: 46%; }
-  .hero__berry--3 { width: clamp(44px, 5vw, 70px); bottom: 8%; left: 4%; transform: rotate(-20deg); opacity: 0.9; }
-  .hero__berry--4 { width: 28px; top: 16%; left: 38%; }
-  .hero__berry--5 { width: clamp(40px, 5vw, 64px); top: 50%; right: 40%; transform: rotate(40deg); opacity: 0.8; }
+  .hero__berry { z-index: 1; left: var(--x); top: var(--y); width: var(--w); rotate: var(--r); }
 
   @media (max-width: 820px) {
     .hero__card { min-height: auto; }
@@ -142,8 +163,7 @@ const letters = site.brand.toUpperCase().split('');
     .hero__visual { justify-self: center; width: min(78%, 280px); margin-top: 24px; }
     .hero__note { left: -14px; top: -34px; font-size: 1.4rem; }
     .hero__note-arrow { display: none; }
-    .hero__berry--2, .hero__berry--5 { display: none; }
-    .hero__berry--1 { top: auto; bottom: 30%; right: 4%; }
-    .hero__berry--3 { bottom: 4%; }
+    .hero__berry { left: var(--mx); top: var(--my); width: var(--mw); }
+    .hero__berry--no-m { display: none; }
   }
 </style>

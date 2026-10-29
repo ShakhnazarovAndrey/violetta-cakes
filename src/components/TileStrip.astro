@@ -2,7 +2,6 @@
 // Лента плиток под hero: настоящие фото работ вперемешку с фирменными плитками.
 import { Image } from 'astro:assets';
 import Decor from './Decor.astro';
-import Monogram from './Monogram.astro';
 import p1 from '../assets/gallery/01-heart-18.jpg';
 import p2 from '../assets/gallery/02-blue-cloud.jpg';
 import p3 from '../assets/gallery/03-frog.jpg';
@@ -24,7 +23,7 @@ import p6 from '../assets/gallery/06-bento-knight.jpg';
           <span>всегда</span><span class="hand">свежие</span><span>ягоды</span>
         </div>
         <div class="tile tile--photo"><Image src={p3} alt={copy === 0 ? 'Розовый торт с лягушкой' : ''} widths={[240, 420]} sizes="230px" /></div>
-        <div class="tile tile--berry"><Monogram /></div>
+        <div class="tile tile--berry"><Decor name="strawberry" class="tile__berry" /></div>
         <div class="tile tile--photo"><Image src={p5} alt={copy === 0 ? 'Бенто-торт с бабочками' : ''} widths={[240, 420]} sizes="230px" /></div>
         <div class="tile tile--cream"><span class="hand">домашняя карамель и ягодные конфи</span></div>
         <div class="tile tile--photo"><Image src={p4} alt={copy === 0 ? 'Красный торт с чёрными розами' : ''} widths={[240, 420]} sizes="230px" /></div>
@@ -57,7 +56,7 @@ import p6 from '../assets/gallery/06-bento-knight.jpg';
   .tile--text span { display: block; }
   .tile--text .hand { font-size: 2.2rem; color: var(--rose); font-weight: 700; }
   .tile--berry { background: var(--berry); color: var(--milk); border-color: var(--berry); }
-  .tile--berry :global(.mono) { width: 56%; }
+  .tile--berry :global(.tile__berry) { position: static; width: 52%; }
   .tile--word { align-content: center; text-align: center; font-weight: 800; font-size: 1.4rem; letter-spacing: -0.02em; }
   .tile--word span { display: block; }
   .tile--word .hand { color: var(--rose-soft); font-size: 2rem; font-weight: 700; }
