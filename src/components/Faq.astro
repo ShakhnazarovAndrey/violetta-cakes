@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import SectionTitle from './SectionTitle.astro';
+import Icon from './Icon.astro';
+import Decor from './Decor.astro';
+
+const faq = (await getCollection('faq')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="section faq" id="faq">
+  <div class="container faq__grid">
+    <div class="faq__side">
+      <SectionTitle solid="Частые" ghost="вопросы" stack />
+      <p>Не нашли ответ? Спросите меня в мессенджере — отвечаю быстро.</p>
+      <Decor name="cherry" class="faq__cherry" />
+    </div>
+    <div class="faq__list">
+      {faq.map(({ data }) => (
+        <details class="qa" data-reveal>
+          <summary>
+            <span>{data.question}</span>
+            <span class="qa__icon"><Icon name="plus" /></span>
+          </summary>
+          <div class="qa__body"><p>{data.answer}</p></div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq__grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
+  .faq__side { position: sticky; top: 40px; }
+  .faq__side p { margin-top: 20px; color: var(--ink-soft); max-width: 32ch; }
+  .faq__cherry { position: relative !important; display: block; width: 110px; margin-top: 32px; }
+  .faq__list { border-top: 1.5px solid var(--line); }
+  .qa { border-bottom: 1.5px solid var(--line); }
+  .qa summary {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 22px 0; cursor: pointer; list-style: none;
+    font-size: clamp(1.05rem, 1.6vw, 1.25rem); font-weight: 700; color: var(--berry);
+  }
+  .qa summary::-webkit-details-marker { display: none; }
+  .qa__icon {
+    flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--berry);
+    display: grid; place-items: center; transition: transform 0.4s var(--ease-spring), background 0.3s, color 0.3s;
+  }
+  .qa__icon :global(svg) { width: 18px; }
+  .qa[open] .qa__icon { transform: rotate(45deg); background: var(--berry); color: var(--milk); }
+  .qa__body { padding: 0 56px 24px 0; color: var(--ink-soft); }
+  .qa[open] .qa__body { animation: drop 0.45s var(--ease-out); }
+  @keyframes drop { from { opacity: 0; transform: translateY(-8px); } }
+
+  @media (max-width: 820px) {
+    .faq__grid { grid-template-columns: 1fr; }
+    .faq__side { position: static; }
+    .faq__cherry { display: none !important; }
+    .qa__body { padding-right: 0; }
+  }
+</style>

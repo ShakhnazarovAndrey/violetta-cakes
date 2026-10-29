@@ -1,0 +1,67 @@
+---
+// Иллюстрация среза торта по цветам слоёв — заглушка, пока нет фото начинки.
+interface Props {
+  layers: string[];
+  cream?: string;
+  topping?: string;
+  class?: string;
+  label?: string;
+}
+const { layers, cream = '#fffaf3', topping, class: cls, label } = Astro.props;
+
+const top = 62;
+const bottom = 192;
+const gap = 7;
+const h = (bottom - top - gap * (layers.length - 1)) / layers.length;
+const uid = Math.random().toString(36).slice(2, 8);
+
+// крошка на коржах
+const crumbs = layers.flatMap((_, i) => {
+  const y0 = bottom - (i + 1) * h - i * gap;
+  return Array.from({ length: 7 }, (_, k) => ({
+    x: 40 + ((k * 37 + i * 23) % 118),
+    y: y0 + 4 + ((k * 13 + i * 7) % Math.max(4, h - 8)),
+    r: 1 + ((k + i) % 3) * 0.5,
+  }));
+});
+const berries = topping ? [62, 92, 122, 148] : [];
+---
+
+<svg class:list={['slice', cls]} viewBox="0 0 200 220" role={label ? 'img' : undefined} aria-label={label} aria-hidden={label ? undefined : 'true'}>
+  <defs>
+    <clipPath id={`c-${uid}`}>
+      <rect x="30" y="52" width="140" height={bottom - 52} rx="12"></rect>
+    </clipPath>
+    <linearGradient id={`s-${uid}`} x1="0" x2="1">
+      <stop offset="0" stop-color="#000" stop-opacity="0"></stop>
+      <stop offset="0.8" stop-color="#000" stop-opacity="0"></stop>
+      <stop offset="1" stop-color="#000" stop-opacity="0.14"></stop>
+    </linearGradient>
+  </defs>
+  <ellipse cx="100" cy="200" rx="88" ry="11" fill="#000" opacity="0.08"></ellipse>
+  <g clip-path={`url(#c-${uid})`}>
+    <rect x="30" y="52" width="140" height={bottom - 52} fill={cream}></rect>
+    {layers.map((c, i) => (
+      <rect x="30" y={bottom - (i + 1) * h - i * gap} width="140" height={h} fill={c}></rect>
+    ))}
+    {crumbs.map((d) => <circle cx={d.x} cy={d.y} r={d.r} fill="#000" opacity="0.12"></circle>)}
+    <rect x="30" y="52" width="140" height={bottom - 52} fill={`url(#s-${uid})`}></rect>
+  </g>
+  <!-- шапка крема с подтёками -->
+  <path
+    d="M24 60c0-10 8-16 18-16h116c10 0 18 6 18 16v4c0 6-5 8-8 4-3-4-8-4-9 4-1 12-12 12-13 0-1-8-9-8-11-1-2 6-9 6-10-1-1-5-7-5-9 0-1 9-12 9-13 0-1-6-8-6-10 0-2 14-14 14-15 0-1-6-9-6-11 0-1 5-9 5-10 0-1-5-7-4-9 0-3 6-10 4-10-3z"
+    fill={cream}
+  ></path>
+  <path d="M30 54c30-6 110-6 140 0" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.7" fill="none"></path>
+  {berries.map((x, i) => (
+    <g transform={`translate(${x} ${40 - (i % 2) * 4})`}>
+      <circle r="10" fill={topping}></circle>
+      <circle cx="-3" cy="-3" r="3" fill="#fff" opacity="0.45"></circle>
+      {i % 2 === 0 && <path d="M0-9c2-6 6-8 10-8" stroke="#4f7a3a" stroke-width="2" fill="none" stroke-linecap="round"></path>}
+    </g>
+  ))}
+</svg>
+
+<style>
+  .slice { width: 100%; height: auto; overflow: visible; }
+</style>

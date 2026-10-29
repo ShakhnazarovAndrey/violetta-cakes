@@ -1,0 +1,37 @@
+---
+// Бегущая бордовая лента с монограммой между секциями.
+import Monogram from './Monogram.astro';
+interface Props { words?: string[]; reverse?: boolean; tilt?: number; }
+const { words = ['торты на заказ', 'бенто', 'с любовью'], reverse = false, tilt = -2 } = Astro.props;
+---
+
+<div class:list={['band', { 'band--reverse': reverse }]} style={`--tilt:${tilt}deg`} aria-hidden="true">
+  <div class="band__track">
+    {[0, 1].map(() => (
+      <div class="band__set">
+        {[...words, ...words].map((w, i) => (
+          <>
+            <span class:list={['band__word', { 'band__word--ghost': i % 2 }]}>{w}</span>
+            <span class="band__mono"><Monogram /></span>
+          </>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .band {
+    background: var(--berry); color: var(--milk); overflow: hidden;
+    transform: rotate(var(--tilt)); margin-inline: -2vw; padding-block: clamp(12px, 1.6vw, 20px);
+    box-shadow: var(--shadow-soft);
+  }
+  .band__track { display: flex; width: max-content; animation: band 40s linear infinite; }
+  .band--reverse .band__track { animation-direction: reverse; }
+  .band__set { display: flex; align-items: center; gap: clamp(18px, 2.4vw, 32px); padding-right: clamp(18px, 2.4vw, 32px); }
+  .band__word { font-size: clamp(1.4rem, 3vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; white-space: nowrap; }
+  .band__word--ghost { color: transparent; -webkit-text-stroke: 1.2px var(--rose-soft); }
+  .band__mono { width: clamp(32px, 3.4vw, 46px); flex: none; color: var(--rose-soft); }
+  @keyframes band { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .band__track { animation: none; } }
+</style>

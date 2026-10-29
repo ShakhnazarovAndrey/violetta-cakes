@@ -1,0 +1,37 @@
+---
+import Icon from './Icon.astro';
+---
+
+<dialog class="fmodal" data-filling-dialog aria-label="Начинка">
+  <div class="fmodal__inner">
+    <button class="fmodal__close" type="button" data-close aria-label="Закрыть"><Icon name="close" /></button>
+    <div class="fmodal__content" data-filling-content></div>
+  </div>
+</dialog>
+
+<style>
+  .fmodal { width: min(920px, calc(100vw - 24px)); margin: auto; }
+  .fmodal[open] { animation: pop 0.5s var(--ease-spring); }
+  .fmodal[open]::backdrop { animation: fade 0.3s; }
+  @keyframes pop { from { opacity: 0; transform: translateY(30px) scale(0.96); } }
+  @keyframes fade { from { opacity: 0; } }
+  .fmodal__inner { position: relative; background: var(--milk); border-radius: var(--radius-l); padding: clamp(20px, 4vw, 48px); max-height: calc(100svh - 24px); overflow: auto; }
+  .fmodal__close {
+    position: absolute; top: 14px; right: 14px; width: 44px; height: 44px; border-radius: 50%;
+    border: 1.5px solid var(--line); background: var(--milk); display: grid; place-items: center; color: var(--berry); z-index: 1;
+  }
+  .fmodal__close :global(svg) { width: 20px; }
+  .fmodal__content { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(20px, 4vw, 48px); align-items: center; }
+  .fmodal__content :global(.fmodal__pic) { border-radius: 46% 54% 28px 28px / 30% 30% 28px 28px; overflow: hidden; aspect-ratio: 4 / 5; background: var(--blush); }
+  .fmodal__content :global(.fmodal__pic img) { width: 100%; height: 100%; object-fit: cover; }
+  .fmodal__content :global(.fmodal__cat) { font-size: var(--fs-small); color: var(--ink-soft); }
+  .fmodal__content :global(.fmodal__title) { margin-top: 6px; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; letter-spacing: -0.035em; line-height: 1; color: var(--berry); }
+  .fmodal__content :global(.fmodal__short) { margin-top: 16px; }
+  .fmodal__content :global(.fmodal__note) { margin-top: 10px; font-size: 1.5rem; color: var(--berry); }
+  .fmodal__content :global(.fmodal__actions) { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+
+  @media (max-width: 560px) {
+    .fmodal__content { grid-template-columns: 1fr; }
+    .fmodal__content :global(.fmodal__pic) { width: 64%; justify-self: center; }
+  }
+</style>

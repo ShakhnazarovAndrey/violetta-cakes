@@ -1,0 +1,33 @@
+:root {
+  /* палитра */
+  --berry: #8e1b3a;
+  --berry-deep: #6a0f27;
+  --rose: #e48ba4;
+  --rose-soft: #f2b8c6;
+  --blush: #f8dfe4;
+  --cream: #fbf5ee;
+  --milk: #fffdf9;
+  --ink: #4a1626;
+  --ink-soft: #7d4a58;
+  --line: rgba(142, 27, 58, 0.22);
+
+  /* типографика */
+  --font-sans: 'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-hand: 'Caveat', 'Comic Sans MS', cursive;
+  --fs-display: clamp(3.6rem, 15vw, 13rem);
+  --fs-h2: clamp(2.2rem, 6vw, 4.6rem);
+  --fs-h3: clamp(1.3rem, 2.2vw, 1.7rem);
+  --fs-body: clamp(1rem, 1.05vw, 1.0625rem);
+  --fs-small: 0.875rem;
+
+  /* геометрия */
+  --gutter: clamp(16px, 4vw, 48px);
+  --container: 1240px;
+  --radius-s: 14px;
+  --radius-m: 24px;
+  --radius-l: 40px;
+  --shadow-soft: 0 18px 40px -22px rgba(106, 15, 39, 0.35);
+  --shadow-lift: 0 30px 60px -28px rgba(106, 15, 39, 0.45);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}

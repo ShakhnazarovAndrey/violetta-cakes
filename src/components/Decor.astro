@@ -1,0 +1,58 @@
+---
+// Декоративные ягоды и листики для фона.
+interface Props {
+  name: 'strawberry' | 'blueberry' | 'raspberry' | 'cherry' | 'leaf' | 'sparkle';
+  class?: string;
+  style?: string;
+  parallax?: number;
+}
+const { name, class: cls, style, parallax } = Astro.props;
+---
+
+<svg class:list={['decor', cls]} style={style} data-parallax={parallax} viewBox="0 0 100 100" aria-hidden="true">
+  {name === 'strawberry' && (
+    <g>
+      <path d="M50 92C22 76 12 52 18 38c6-14 22-16 32-12 10-4 26-2 32 12 6 14-4 38-32 54z" fill="#e23a55"></path>
+      <g fill="#ffe7b0">
+        <ellipse cx="34" cy="44" rx="1.6" ry="2.4"></ellipse><ellipse cx="50" cy="40" rx="1.6" ry="2.4"></ellipse><ellipse cx="66" cy="44" rx="1.6" ry="2.4"></ellipse>
+        <ellipse cx="40" cy="58" rx="1.6" ry="2.4"></ellipse><ellipse cx="58" cy="58" rx="1.6" ry="2.4"></ellipse><ellipse cx="50" cy="72" rx="1.6" ry="2.4"></ellipse>
+      </g>
+      <path d="M30 28c8 2 14 0 20-8 6 8 12 10 20 8-4 6-12 8-20 6-8 2-16 0-20-6z" fill="#4f7a3a"></path>
+      <path d="M50 22c0-6 2-10 6-14" stroke="#4f7a3a" stroke-width="3" stroke-linecap="round" fill="none"></path>
+    </g>
+  )}
+  {name === 'blueberry' && (
+    <g>
+      <circle cx="50" cy="52" r="34" fill="#3d3d78"></circle>
+      <circle cx="40" cy="42" r="8" fill="#fff" opacity="0.18"></circle>
+      <path d="M50 26l4 6 7-2-3 7 6 4-7 1-1 7-6-5-6 5-1-7-7-1 6-4-3-7 7 2z" fill="#2a2a5a"></path>
+    </g>
+  )}
+  {name === 'raspberry' && (
+    <g fill="#c9184a">
+      {[[38,36],[54,34],[30,52],[46,50],[62,50],[38,66],[54,66],[46,80],[70,36]].map(([x, y]) => (
+        <circle cx={x} cy={y} r="10"></circle>
+      ))}
+      <g fill="#fff" opacity="0.3">
+        {[[35,33],[51,31],[27,49],[43,47],[59,47]].map(([x, y]) => <circle cx={x} cy={y} r="2.5"></circle>)}
+      </g>
+    </g>
+  )}
+  {name === 'cherry' && (
+    <g>
+      <path d="M36 66c4-20 14-40 32-56M68 10c-2 20 2 40 10 52" stroke="#4f7a3a" stroke-width="3" fill="none" stroke-linecap="round"></path>
+      <circle cx="34" cy="72" r="16" fill="#a3102d"></circle><circle cx="78" cy="70" r="15" fill="#c9184a"></circle>
+      <circle cx="29" cy="67" r="4" fill="#fff" opacity="0.45"></circle><circle cx="73" cy="65" r="4" fill="#fff" opacity="0.45"></circle>
+    </g>
+  )}
+  {name === 'leaf' && (
+    <path d="M14 86C10 46 40 14 88 12 86 56 58 86 14 86zM14 86C34 64 54 44 80 22" fill="#8fae6b" stroke="#5d8a43" stroke-width="2"></path>
+  )}
+  {name === 'sparkle' && (
+    <path d="M50 8c4 26 16 38 42 42-26 4-38 16-42 42-4-26-16-38-42-42 26-4 38-16 42-42z" fill="currentColor"></path>
+  )}
+</svg>
+
+<style>
+  .decor { position: absolute; pointer-events: none; overflow: visible; color: var(--rose); }
+</style>

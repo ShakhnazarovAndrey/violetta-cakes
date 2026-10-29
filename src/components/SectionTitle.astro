@@ -1,0 +1,36 @@
+---
+// Заголовок из двух частей: плотная + «призрачная» (светлая с контуром).
+interface Props {
+  solid: string;
+  ghost?: string;
+  as?: 'h1' | 'h2' | 'h3';
+  align?: 'left' | 'center' | 'right';
+  stack?: boolean;
+  id?: string;
+}
+const { solid, ghost, as: Tag = 'h2', align = 'left', stack = false, id } = Astro.props;
+---
+
+<Tag class:list={['title', `title--${align}`, { 'title--stack': stack }]} id={id} data-split>
+  <span class="title__solid">{solid}</span>
+  {ghost && <span class="title__ghost">{ghost}</span>}
+</Tag>
+
+<style>
+  .title {
+    font-size: var(--fs-h2);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    color: var(--berry);
+    text-wrap: balance;
+  }
+  .title--center { text-align: center; }
+  .title--right { text-align: right; }
+  .title--stack span { display: block; }
+  .title__ghost {
+    color: var(--blush);
+    -webkit-text-stroke: 1.5px var(--rose);
+    paint-order: stroke fill;
+  }
+</style>

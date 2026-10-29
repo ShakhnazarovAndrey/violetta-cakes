@@ -1,0 +1,68 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import SectionTitle from './SectionTitle.astro';
+import Icon from './Icon.astro';
+
+const reviews = (await getCollection('reviews')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="section reviews" id="reviews">
+  <div class="container">
+    <div class="reviews__head">
+      <SectionTitle solid="Ваши" ghost="отзывы" />
+      <div class="reviews__ctrl">
+        <button type="button" class="reviews__arrow" data-carousel-prev aria-label="Предыдущий отзыв"><Icon name="arrow" /></button>
+        <button type="button" class="reviews__arrow" data-carousel-next aria-label="Следующий отзыв"><Icon name="arrow" /></button>
+      </div>
+    </div>
+  </div>
+
+  <ul class="reviews__track" data-carousel tabindex="0" aria-label="Отзывы клиентов">
+    {reviews.map(({ data }, i) => (
+      <li class="review" style={`--r:${i % 2 ? 1.5 : -1.5}deg`}>
+        {data.image && <Image src={data.image} alt={`Отзыв: ${data.author}`} widths={[320, 560]} sizes="320px" class="review__img" />}
+        <span class="review__quote" aria-hidden="true">“</span>
+        <p class="review__text">{data.text}</p>
+        <footer>
+          <strong>{data.author}</strong>
+          {data.occasion && <span>{data.occasion}</span>}
+        </footer>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .reviews__head { display: flex; align-items: end; justify-content: space-between; gap: 16px; }
+  .reviews__ctrl { display: flex; gap: 10px; }
+  .reviews__arrow {
+    width: 52px; height: 52px; border-radius: 50%; border: 1.5px solid var(--berry); background: transparent;
+    display: grid; place-items: center; color: var(--berry); transition: background 0.3s, color 0.3s;
+  }
+  .reviews__arrow:hover { background: var(--berry); color: var(--milk); }
+  .reviews__arrow :global(svg) { width: 22px; }
+  .reviews__arrow:first-child :global(svg) { transform: scaleX(-1); }
+
+  .reviews__track {
+    list-style: none; margin: clamp(32px, 5vw, 56px) 0 0; padding: 20px max(var(--gutter), calc((100vw - var(--container)) / 2));
+    display: flex; gap: clamp(14px, 2vw, 24px);
+    overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: max(var(--gutter), calc((100vw - var(--container)) / 2));
+    scrollbar-width: none; overscroll-behavior-x: contain;
+  }
+  .reviews__track::-webkit-scrollbar { display: none; }
+  .review {
+    flex: none; width: min(82vw, 360px); scroll-snap-align: start;
+    position: relative; display: flex; flex-direction: column; gap: 16px;
+    padding: 32px 28px 26px; border-radius: var(--radius-m); background: var(--milk); border: 1.5px solid var(--line);
+    transform: rotate(var(--r)); transition: transform 0.5s var(--ease-spring), box-shadow 0.4s;
+  }
+  .review:hover { transform: rotate(0) translateY(-6px); box-shadow: var(--shadow-soft); }
+  .review:nth-child(3n + 2) { background: var(--blush); }
+  .review__img { border-radius: var(--radius-s); }
+  .review__quote { position: absolute; top: -6px; right: 22px; font-size: 6rem; line-height: 1; color: var(--rose); font-weight: 900; }
+  .review__text { flex: 1; }
+  .review footer { display: grid; gap: 2px; padding-top: 14px; border-top: 1.5px dashed var(--line); }
+  .review footer strong { color: var(--berry); }
+  .review footer span { font-size: var(--fs-small); color: var(--ink-soft); }
+</style>

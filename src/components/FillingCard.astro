@@ -1,0 +1,83 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+
+interface Props { entry: CollectionEntry<'fillings'>; compact?: boolean; }
+const { entry, compact = false } = Astro.props;
+const { id, data } = entry;
+const kind = data.type === 'бенто' ? 'бенто-торт' : 'торт';
+---
+
+<li class:list={['filling', { 'filling--compact': compact }]} data-reveal>
+  <button class="filling__btn" type="button" data-open-filling={id} aria-haspopup="dialog">
+    {!compact && <span class="filling__name">{data.name}</span>}
+    <span class="filling__pic">
+      <Image src={data.image} alt={`Срез начинки «${data.name}»`} widths={[240, 420, 648]} sizes={compact ? '(max-width: 700px) 45vw, 280px' : '(max-width: 700px) 70vw, 300px'} />
+    </span>
+    {compact && <span class="filling__title">{data.name}</span>}
+    {data.description && <span class="filling__short">{data.description}</span>}
+    <span class="filling__more">{compact ? 'заказать' : 'подробнее'} <Icon name="plus" /></span>
+  </button>
+
+  <template data-filling-tpl={id}>
+    <div class="fmodal__pic">
+      <Image src={data.image} alt={`Срез начинки «${data.name}»`} widths={[420, 648]} sizes="(max-width: 700px) 80vw, 420px" />
+    </div>
+    <div class="fmodal__body">
+      <span class="fmodal__cat">{data.type === 'бенто' ? 'начинка для бенто' : 'начинка для торта'}</span>
+      <h3 class="fmodal__title">{data.name}</h3>
+      {data.description && <p class="fmodal__short">{data.description}</p>}
+      {data.note && <p class="fmodal__note hand">{data.note}</p>}
+      <div class="fmodal__actions">
+        <a class="btn" href="#contacts" data-order="wa" data-filling={data.name} data-kind={kind}><Icon name="whatsapp" /> WhatsApp</a>
+        <a class="btn btn--ghost" href="#contacts" data-order="tg" data-filling={data.name} data-kind={kind}><Icon name="telegram" /> Telegram</a>
+      </div>
+    </div>
+  </template>
+</li>
+
+<style>
+  .filling__btn {
+    width: 100%; display: grid; grid-template-columns: auto 1fr; gap: 10px 14px; text-align: left;
+    background: none; border: 0; padding: 0;
+  }
+  .filling__name {
+    grid-row: span 3; writing-mode: vertical-rl; transform: rotate(180deg);
+    font-size: clamp(1.2rem, 1.8vw, 1.5rem); font-weight: 800; letter-spacing: -0.02em; color: var(--berry); line-height: 1;
+  }
+  .filling__pic {
+    display: block; aspect-ratio: 4 / 5; overflow: hidden; background: var(--blush);
+    border-radius: 46% 54% 28px 28px / 30% 30% 28px 28px;
+    transition: transform 0.6s var(--ease-spring), border-radius 0.8s var(--ease-out), box-shadow 0.4s;
+  }
+  .filling__pic :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease-out); }
+  .filling__btn:hover .filling__pic {
+    transform: translateY(-8px) rotate(-1.5deg);
+    border-radius: 54% 46% 28px 28px / 24% 36% 28px 28px;
+    box-shadow: var(--shadow-lift);
+  }
+  .filling__btn:hover .filling__pic :global(img) { transform: scale(1.06); }
+  .filling__short { grid-column: 2; font-size: 0.95rem; color: var(--ink-soft); }
+  .filling__more {
+    grid-column: 2; display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.9rem; font-weight: 600; color: var(--berry);
+  }
+  .filling__more :global(svg) { width: 16px; height: 16px; transition: transform 0.4s var(--ease-spring); }
+  .filling__btn:hover .filling__more :global(svg) { transform: rotate(90deg); }
+
+  /* компактная карточка (начинки бенто) */
+  .filling--compact .filling__btn { grid-template-columns: 1fr; gap: 10px; }
+  .filling--compact .filling__pic { aspect-ratio: 4 / 3; border-radius: var(--radius-m); }
+  .filling--compact .filling__btn:hover .filling__pic { border-radius: var(--radius-m); transform: translateY(-6px); }
+  .filling__title { grid-column: 1; font-weight: 800; letter-spacing: -0.02em; color: var(--berry); font-size: 1.1rem; line-height: 1.15; }
+  .filling--compact .filling__short, .filling--compact .filling__more { grid-column: 1; }
+
+  @media (max-width: 560px) {
+    .filling__btn { grid-template-columns: 1fr; gap: 8px; }
+    .filling__name { grid-row: 2; writing-mode: horizontal-tb; transform: none; font-size: 1.05rem; line-height: 1.15; }
+    .filling__pic { grid-row: 1; }
+    .filling__short, .filling__more { grid-column: 1; }
+    .filling__short { font-size: 0.82rem; line-height: 1.4; }
+  }
+</style>

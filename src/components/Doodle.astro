@@ -1,0 +1,45 @@
+---
+// Рукописные линии-петли вокруг фото и блоков. Рисуются при скролле (data-draw).
+interface Props {
+  variant?: 'loop' | 'swirl' | 'arrow' | 'heart' | 'underline' | 'squiggle';
+  class?: string;
+  width?: number;
+}
+const { variant = 'loop', class: cls, width = 1.6 } = Astro.props;
+
+const paths: Record<string, { viewBox: string; d: string }> = {
+  loop: {
+    viewBox: '0 0 400 400',
+    d: 'M210 22c78 4 150 52 166 132 18 92-40 196-142 218-96 20-196-34-212-128C6 150 60 54 150 30c40-10 92-4 122 22 20 18 8 40-14 32',
+  },
+  swirl: {
+    viewBox: '0 0 600 260',
+    d: 'M8 190c60-80 140-150 220-120 70 26 30 120-30 110-50-8-30-90 40-110 90-26 190 10 250 60 40 32 70 60 100 40',
+  },
+  arrow: {
+    viewBox: '0 0 160 120',
+    d: 'M10 20c40-6 90 10 110 50 8 16 10 30 8 40m0 0c-8-10-20-16-32-18m32 18c4-12 12-22 22-28',
+  },
+  heart: {
+    viewBox: '0 0 120 110',
+    d: 'M60 100C20 72 6 50 10 32 14 14 36 6 50 18c6 5 9 11 10 16 2-6 6-13 13-18 16-11 38-2 38 20 0 22-22 46-51 64',
+  },
+  underline: {
+    viewBox: '0 0 300 30',
+    d: 'M4 20c50-12 110-16 170-10 40 4 80 8 122-2',
+  },
+  squiggle: {
+    viewBox: '0 0 220 60',
+    d: 'M4 40c20-30 36-30 46 0s28 30 44 0 30-30 44 0 28 30 44 0 24-24 34-6',
+  },
+};
+const p = paths[variant];
+---
+
+<svg class:list={['doodle', cls]} viewBox={p.viewBox} fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d={p.d} stroke="currentColor" stroke-width={width} stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" data-draw></path>
+</svg>
+
+<style>
+  .doodle { color: var(--berry); pointer-events: none; overflow: visible; }
+</style>

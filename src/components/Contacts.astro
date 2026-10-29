@@ -1,0 +1,105 @@
+---
+import { site } from '../data/site';
+import Icon from './Icon.astro';
+import Monogram from './Monogram.astro';
+import Doodle from './Doodle.astro';
+import Decor from './Decor.astro';
+
+const c = site.contacts;
+const year = new Date().getFullYear();
+---
+
+<footer class="contacts" id="contacts">
+  <div class="container">
+    <div class="contacts__card">
+      <Doodle variant="swirl" class="contacts__doodle" />
+      <Decor name="strawberry" class="contacts__berry contacts__berry--1" parallax={-0.2} />
+      <Decor name="blueberry" class="contacts__berry contacts__berry--2" parallax={0.15} />
+
+      <span class="contacts__kicker hand">давайте знакомиться</span>
+      <h2 class="contacts__title" data-split>
+        <span>Сделаем ваш праздник</span>
+        <span class="contacts__ghost">вкуснее?</span>
+      </h2>
+      <p class="contacts__lead">Напишите дату, вес и начинку — отвечу в течение пары часов и помогу со всеми деталями.</p>
+
+      <div class="contacts__buttons">
+        <a class="cbtn" href={`https://t.me/${c.telegram}`} target="_blank" rel="noopener" data-order="tg">
+          <Icon name="telegram" /><span><b>Telegram</b><small>@{c.telegram}</small></span>
+        </a>
+        <a class="cbtn" href={`https://wa.me/${c.whatsapp}`} target="_blank" rel="noopener" data-order="wa">
+          <Icon name="whatsapp" /><span><b>WhatsApp</b><small>{c.phone}</small></span>
+        </a>
+        <a class="cbtn" href={`https://instagram.com/${c.instagram}`} target="_blank" rel="noopener">
+          <Icon name="instagram" /><span><b>Instagram</b><small>@{c.instagram}</small></span>
+        </a>
+      </div>
+
+      <dl class="contacts__info">
+        <div><dt>Город</dt><dd>{site.city}</dd></div>
+        <div><dt>Получение</dt><dd>{site.delivery}</dd></div>
+        <div><dt>Заказы</dt><dd>за 5–7 дней, предоплата 50%</dd></div>
+      </dl>
+    </div>
+
+    <div class="footer">
+      <span class="footer__mono"><Monogram /></span>
+      <span>© {year} {site.brand} Cake · {site.role}</span>
+      <a href="#top">наверх ↑</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .contacts { padding-block: clamp(40px, 6vw, 80px) 24px; }
+  .contacts__card {
+    position: relative; overflow: hidden; text-align: center;
+    border-radius: var(--radius-l); background: var(--blush);
+    padding: clamp(48px, 8vw, 110px) clamp(20px, 5vw, 64px);
+  }
+  .contacts__doodle { position: absolute; inset: 10% -10% auto; width: 120%; height: 60%; color: var(--rose); opacity: 0.7; }
+  .contacts__berry { width: clamp(50px, 7vw, 100px); }
+  .contacts__berry--1 { top: 10%; left: 6%; transform: rotate(-16deg); }
+  .contacts__berry--2 { bottom: 12%; right: 8%; width: clamp(34px, 4vw, 56px); }
+  .contacts__kicker { position: relative; font-size: 2rem; color: var(--berry); }
+  .contacts__title {
+    position: relative; margin-top: 10px; font-size: clamp(2.4rem, 7vw, 5.6rem); font-weight: 900; line-height: 0.92; letter-spacing: -0.045em; color: var(--berry);
+  }
+  .contacts__title span { display: block; }
+  .contacts__ghost { color: var(--milk); -webkit-text-stroke: 1.5px var(--rose); paint-order: stroke fill; }
+  .contacts__lead { position: relative; margin: 22px auto 0; max-width: 46ch; }
+
+  .contacts__buttons { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 36px; }
+  .cbtn {
+    display: flex; align-items: center; gap: 14px; min-width: 230px; padding: 16px 24px 16px 18px; text-align: left;
+    border-radius: 999px; background: var(--milk); border: 1.5px solid var(--berry); text-decoration: none; color: var(--berry);
+    transition: transform 0.45s var(--ease-spring), background 0.3s, color 0.3s, box-shadow 0.3s;
+  }
+  .cbtn:first-child { background: var(--berry); color: var(--milk); }
+  .cbtn:hover { transform: translateY(-4px) rotate(-1.5deg); box-shadow: var(--shadow-lift); }
+  .cbtn :global(svg) { width: 30px; height: 30px; flex: none; }
+  .cbtn span { display: grid; }
+  .cbtn b { font-size: 1.1rem; }
+  .cbtn small { font-size: 0.85rem; opacity: 0.75; }
+
+  .contacts__info {
+    position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 40px;
+    margin: 44px 0 0; padding-top: 28px; border-top: 1.5px solid var(--line);
+  }
+  .contacts__info div { display: grid; gap: 2px; }
+  .contacts__info dt { font-size: var(--fs-small); color: var(--ink-soft); }
+  .contacts__info dd { margin: 0; font-weight: 600; color: var(--berry); }
+
+  .footer {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    padding: 28px 4px 8px; font-size: var(--fs-small); color: var(--ink-soft);
+  }
+  .footer__mono { width: 40px; color: var(--berry); }
+  .footer a { color: var(--berry); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .contacts__berry--1 { top: 2%; left: 4%; width: 44px; }
+    .cbtn { width: 100%; }
+    .footer { padding-bottom: 96px; }
+  }
+</style>

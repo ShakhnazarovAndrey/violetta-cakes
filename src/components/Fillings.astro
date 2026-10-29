@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import SectionTitle from './SectionTitle.astro';
+import FillingCard from './FillingCard.astro';
+
+const fillings = (await getCollection('fillings'))
+  .filter((f) => f.data.type === 'торт')
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="section fillings" id="fillings">
+  <div class="container">
+    <div class="fillings__head">
+      <SectionTitle solid="Основные" ghost="начинки" />
+      <span class="fillings__aside hand">· для тортов</span>
+    </div>
+
+    <ul class="fillings__grid">
+      {fillings.map((entry) => <FillingCard entry={entry} />)}
+    </ul>
+
+    <p class="fillings__note" data-reveal>
+      Не нашли подходящую начинку или сомневаетесь с выбором? Напишите мне — подберём вкус под ваш праздник и гостей.
+    </p>
+  </div>
+</section>
+
+<style>
+  .fillings__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
+  .fillings__aside { font-size: 1.8rem; color: var(--berry); }
+  .fillings__grid {
+    list-style: none; margin: clamp(32px, 5vw, 56px) 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 4vw, 56px) clamp(16px, 3vw, 40px);
+  }
+  .fillings__note { margin-top: clamp(40px, 6vw, 72px); max-width: 60ch; padding-top: 20px; border-top: 1.5px solid var(--line); color: var(--ink-soft); }
+
+  @media (max-width: 900px) { .fillings__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .fillings__grid { gap: 28px 14px; } }
+</style>

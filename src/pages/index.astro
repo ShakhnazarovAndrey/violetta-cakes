@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import TileStrip from '../components/TileStrip.astro';
+import About from '../components/About.astro';
+import Band from '../components/Band.astro';
+import Products from '../components/Products.astro';
+import Bento from '../components/Bento.astro';
+import FillingModal from '../components/FillingModal.astro';
+import Fillings from '../components/Fillings.astro';
+import Gallery from '../components/Gallery.astro';
+import HowToOrder from '../components/HowToOrder.astro';
+import Reviews from '../components/Reviews.astro';
+import Faq from '../components/Faq.astro';
+import Contacts from '../components/Contacts.astro';
+import StickyCta from '../components/StickyCta.astro';
+---
+
+<Base>
+  <Hero />
+  <main>
+    <TileStrip />
+    <About />
+    <Band />
+    <Products />
+    <Fillings />
+    <Band words={['домашняя карамель', 'ягодные конфи', 'шоколадные ганаши', 'ванильные бисквиты']} reverse tilt={2} />
+    <Bento />
+    <Gallery />
+    <HowToOrder />
+    <Reviews />
+    <Faq />
+  </main>
+  <Contacts />
+  <StickyCta />
+  <FillingModal />
+</Base>

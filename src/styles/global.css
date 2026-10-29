@@ -1,0 +1,106 @@
+@import './tokens.css';
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: clip; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+a { color: inherit; }
+button { font: inherit; color: inherit; cursor: pointer; }
+h1, h2, h3, h4, p { margin: 0; }
+::selection { background: var(--rose-soft); color: var(--berry-deep); }
+
+:focus-visible { outline: 2px solid var(--berry); outline-offset: 3px; border-radius: 6px; }
+
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section { padding-block: clamp(72px, 11vw, 150px); position: relative; }
+
+.hand { font-family: var(--font-hand); font-weight: 600; line-height: 1; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* кнопки */
+.btn {
+  --bg: var(--berry);
+  --fg: var(--milk);
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.6em;
+  min-height: 52px; padding: 0.9em 1.7em;
+  border: 1.5px solid var(--bg); border-radius: 999px;
+  background: var(--bg); color: var(--fg);
+  font-weight: 600; font-size: 1rem; letter-spacing: 0.01em; text-decoration: none;
+  transition: transform 0.4s var(--ease-spring), background 0.3s, color 0.3s, box-shadow 0.3s;
+  will-change: transform;
+}
+.btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-soft); }
+.btn:active { transform: translateY(0) scale(0.98); }
+.btn--ghost { --bg: transparent; --fg: var(--berry); border-color: var(--berry); }
+.btn--ghost:hover { --bg: var(--berry); --fg: var(--milk); }
+.btn--light { --bg: var(--milk); --fg: var(--berry); }
+.btn svg { width: 1.25em; height: 1.25em; flex: none; }
+
+.chip {
+  display: inline-flex; align-items: center; min-height: 40px; padding: 0.4em 1.1em;
+  border: 1.5px solid var(--line); border-radius: 999px; background: transparent;
+  font-weight: 500; font-size: 0.95rem; color: var(--berry);
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+.chip:hover { border-color: var(--berry); }
+.chip[aria-pressed='true'] { background: var(--berry); color: var(--milk); border-color: var(--berry); }
+
+.price-badge {
+  display: inline-flex; align-items: center; padding: 0.35em 0.8em;
+  border: 1.5px solid var(--berry); border-radius: 999px; background: var(--milk);
+  font-weight: 700; font-size: 0.85rem; color: var(--berry); white-space: nowrap;
+}
+
+/* стартовое состояние анимаций (только когда JS готов и анимации разрешены) */
+.js-anim [data-reveal] { opacity: 0; transform: translateY(40px); }
+.js-anim [data-split] { opacity: 0; }
+
+/* диалоги */
+dialog {
+  border: 0; padding: 0; background: transparent; color: inherit;
+  max-width: none; max-height: none;
+}
+dialog::backdrop { background: rgba(74, 22, 38, 0.45); backdrop-filter: blur(6px); }
+
+/* тост */
+.toast {
+  position: fixed; left: 50%; bottom: 96px; z-index: 100;
+  transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+  padding: 0.8em 1.3em; border-radius: 999px; background: var(--berry-deep); color: var(--milk);
+  font-weight: 500; font-size: 0.95rem; box-shadow: var(--shadow-lift);
+  transition: opacity 0.35s, transform 0.45s var(--ease-spring);
+  max-width: calc(100vw - 32px); text-align: center;
+}
+.toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}

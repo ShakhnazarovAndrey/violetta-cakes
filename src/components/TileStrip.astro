@@ -1,0 +1,71 @@
+---
+// Лента плиток под hero: настоящие фото работ вперемешку с фирменными плитками.
+import { Image } from 'astro:assets';
+import Decor from './Decor.astro';
+import Monogram from './Monogram.astro';
+import p1 from '../assets/gallery/01-heart-18.jpg';
+import p2 from '../assets/gallery/02-blue-cloud.jpg';
+import p3 from '../assets/gallery/03-frog.jpg';
+import p4 from '../assets/gallery/04-red-roses.jpg';
+import p5 from '../assets/gallery/05-bento-pink.jpg';
+import p6 from '../assets/gallery/06-bento-knight.jpg';
+---
+
+<section class="strip" aria-label="Атмосфера">
+  <div class="strip__track">
+    {[0, 1].map((copy) => (
+      <div class="strip__set" aria-hidden={copy === 1 ? 'true' : undefined}>
+        <div class="tile tile--photo"><Image src={p1} alt={copy === 0 ? 'Розовый торт-сердце' : ''} widths={[240, 420]} sizes="230px" /></div>
+        <div class="tile tile--pattern">
+          {Array.from({ length: 9 }, (_, i) => <Decor name={i % 3 === 1 ? 'raspberry' : 'strawberry'} style={`--n:${i}`} />)}
+        </div>
+        <div class="tile tile--photo"><Image src={p2} alt={copy === 0 ? 'Голубой торт с облаками' : ''} widths={[240, 420]} sizes="230px" /></div>
+        <div class="tile tile--text">
+          <span>всегда</span><span class="hand">свежие</span><span>ягоды</span>
+        </div>
+        <div class="tile tile--photo"><Image src={p3} alt={copy === 0 ? 'Розовый торт с лягушкой' : ''} widths={[240, 420]} sizes="230px" /></div>
+        <div class="tile tile--berry"><Monogram /></div>
+        <div class="tile tile--photo"><Image src={p5} alt={copy === 0 ? 'Бенто-торт с бабочками' : ''} widths={[240, 420]} sizes="230px" /></div>
+        <div class="tile tile--cream"><span class="hand">домашняя карамель и ягодные конфи</span></div>
+        <div class="tile tile--photo"><Image src={p4} alt={copy === 0 ? 'Красный торт с чёрными розами' : ''} widths={[240, 420]} sizes="230px" /></div>
+        <div class="tile tile--berry tile--word"><span>handmade</span><span class="hand">with love</span></div>
+        <div class="tile tile--photo"><Image src={p6} alt={copy === 0 ? 'Бенто-торт с котиком-рыцарем' : ''} widths={[240, 420]} sizes="230px" /></div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .strip { overflow: hidden; padding-block: clamp(16px, 2.5vw, 28px); }
+  .strip__track { display: flex; width: max-content; animation: strip 70s linear infinite; }
+  .strip:hover .strip__track { animation-play-state: paused; }
+  .strip__set { display: flex; gap: clamp(10px, 1.4vw, 18px); padding-right: clamp(10px, 1.4vw, 18px); }
+  @keyframes strip { to { transform: translateX(-50%); } }
+
+  .tile {
+    position: relative; flex: none; overflow: hidden;
+    width: clamp(150px, 18vw, 230px); aspect-ratio: 3 / 4;
+    border-radius: var(--radius-m);
+    border: 1.5px solid var(--line);
+    background: var(--milk);
+    display: grid; place-items: center;
+  }
+  .tile--photo :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .tile--pattern { display: grid; grid-template-columns: repeat(3, 1fr); padding: 10px; gap: 6px; }
+  .tile--pattern :global(.decor) { position: static; width: 100%; transform: rotate(calc(var(--n) * 37deg)); }
+  .tile--text { align-content: center; gap: 0; text-align: center; color: var(--berry); font-weight: 700; font-size: 1.1rem; padding: 16px; }
+  .tile--text span { display: block; }
+  .tile--text .hand { font-size: 2.2rem; color: var(--rose); font-weight: 700; }
+  .tile--berry { background: var(--berry); color: var(--milk); border-color: var(--berry); }
+  .tile--berry :global(.mono) { width: 56%; }
+  .tile--word { align-content: center; text-align: center; font-weight: 800; font-size: 1.4rem; letter-spacing: -0.02em; }
+  .tile--word span { display: block; }
+  .tile--word .hand { color: var(--rose-soft); font-size: 2rem; font-weight: 700; }
+  .tile--cream {
+    background: repeating-radial-gradient(circle at 30% 40%, #fff 0 10px, #f7ede2 12px 22px);
+    padding: 20px; text-align: center;
+  }
+  .tile--cream .hand { font-size: 1.9rem; color: var(--berry); transform: rotate(-6deg); }
+
+  @media (prefers-reduced-motion: reduce) { .strip__track { animation: none; } }
+</style>

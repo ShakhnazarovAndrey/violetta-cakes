@@ -1,0 +1,71 @@
+---
+import { site } from '../data/site';
+import SectionTitle from './SectionTitle.astro';
+import Decor from './Decor.astro';
+import CakeSlice from './CakeSlice.astro';
+import Illustration from './Illustration.astro';
+import Icon from './Icon.astro';
+---
+
+<section class="section how" id="how">
+  <div class="container">
+    <SectionTitle solid="Как сделать" ghost="заказ?" align="right" />
+
+    <div class="how__body">
+      <svg class="how__path" viewBox="0 0 1200 200" fill="none" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M40 120C180 20 300 200 450 110S700 10 820 100s260 70 340-20" stroke="var(--rose)" stroke-width="2" stroke-dasharray="2 10" stroke-linecap="round" vector-effect="non-scaling-stroke" data-draw-dashed></path>
+      </svg>
+      <ol class="how__steps">
+        {site.steps.map((s, i) => (
+          <li class="step" data-reveal style={`--i:${i}`}>
+            <div class="step__pic">
+              {i === 0 && <CakeSlice layers={['#f3d9a8', '#e8455f', '#f3d9a8', '#e8455f', '#f3d9a8']} topping="#e23a55" />}
+              {i === 1 && <Illustration name="cake" />}
+              {i === 2 && <span class="step__icon"><Icon name="telegram" /></span>}
+              {i === 3 && <Decor name="strawberry" class="step__decor" />}
+              <span class="step__num">{i + 1}</span>
+            </div>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <p class="how__note" data-reveal><span class="hand">важно:</span> {site.orderNote}</p>
+  </div>
+</section>
+
+<style>
+  .how__body { position: relative; margin-top: clamp(40px, 6vw, 80px); }
+  .how__path { position: absolute; left: 0; right: 0; top: 30px; width: 100%; height: 180px; }
+  .how__steps { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(20px, 3vw, 40px); }
+  .step:nth-child(even) { margin-top: clamp(0px, 6vw, 80px); }
+  .step__pic {
+    position: relative; width: clamp(120px, 14vw, 170px); aspect-ratio: 1; border-radius: 50%;
+    background: var(--milk); border: 1.5px solid var(--line); display: grid; grid-template-columns: 100%; place-items: center; padding: 16%;
+    box-shadow: var(--shadow-soft); margin-bottom: 20px;
+  }
+  .step__num {
+    position: absolute; top: -4px; left: -4px; width: 42px; height: 42px; border-radius: 50%;
+    background: var(--berry); color: var(--milk); display: grid; place-items: center; font-weight: 800;
+  }
+  .step__icon { width: 70%; color: var(--berry); }
+  .step__decor { position: static !important; width: 100%; }
+  .step h3 { font-size: var(--fs-h3); font-weight: 800; letter-spacing: -0.02em; color: var(--berry); }
+  .step p { margin-top: 8px; color: var(--ink-soft); font-size: 0.95rem; max-width: 30ch; }
+  .how__note { margin-top: clamp(40px, 6vw, 72px); max-width: 60ch; margin-left: auto; text-align: right; }
+  .how__note .hand { font-size: 1.6rem; color: var(--berry); }
+
+  @media (max-width: 900px) {
+    .how__path { display: none; }
+    .how__steps { grid-template-columns: 1fr 1fr; }
+    .step:nth-child(even) { margin-top: 40px; }
+  }
+  @media (max-width: 520px) {
+    .how__steps { grid-template-columns: 1fr; gap: 28px; }
+    .step { display: grid; grid-template-columns: 100px 1fr; column-gap: 18px; align-items: center; margin-top: 0 !important; }
+    .step__pic { width: 100px; grid-row: span 2; margin: 0; }
+    .how__note { text-align: left; }
+  }
+</style>

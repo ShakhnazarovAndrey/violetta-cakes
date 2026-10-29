@@ -1,0 +1,88 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import SectionTitle from './SectionTitle.astro';
+import FillingCard from './FillingCard.astro';
+import Doodle from './Doodle.astro';
+import Icon from './Icon.astro';
+import tier1 from '../assets/bento/tier-1.jpg';
+import tier2 from '../assets/bento/tier-2.jpg';
+import tier3 from '../assets/bento/tier-3.jpg';
+
+const tiers = [
+  { img: tier1, price: '1700 ₽', title: 'Классика', text: 'Стандартный и простой дизайн бенто с надписью, к которой можно добавить сердечки.' },
+  { img: tier2, price: '1900 ₽', title: 'С рисунком', text: 'Декор бенто с простым рисунком или дизайном, сахарная печать (съедобные фото).' },
+  { img: tier3, price: '2000–2200 ₽', title: 'Авторский', text: 'Декор бенто с полноценным рисунком, стиль Ламбет, сложный дизайн или форма тортика.' },
+];
+
+const fillings = (await getCollection('fillings'))
+  .filter((f) => f.data.type === 'бенто')
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="section bento" id="bento">
+  <div class="container">
+    <SectionTitle solid="Бенто" ghost="торты" align="center" />
+    <p class="bento__lead" data-reveal>Небольшие торты в коробочке — идеальный подарок. Цена зависит от сложности декора.</p>
+
+    <ul class="tiers">
+      {tiers.map((t, i) => (
+        <li class="tier" data-reveal style={`--i:${i}`}>
+          <div class="tier__pic">
+            <Doodle variant="loop" class="tier__loop" />
+            <Image src={t.img} alt={`Бенто-торт: ${t.title}`} widths={[240, 360]} sizes="(max-width: 700px) 60vw, 320px" />
+          </div>
+          <span class="price-badge">{t.price}</span>
+          <h3>{t.title}</h3>
+          <p>{t.text}</p>
+        </li>
+      ))}
+    </ul>
+
+    <div class="bento__fill">
+      <h3 class="bento__fill-title" data-split>Начинки <span>бенто</span></h3>
+      <ul class="bento__grid">
+        {fillings.map((entry) => <FillingCard entry={entry} compact />)}
+      </ul>
+      <div class="bento__cta" data-reveal>
+        <a class="btn" href="#contacts" data-order="wa" data-kind="бенто-торт">Заказать бенто <Icon name="arrow" /></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .bento__lead { max-width: 52ch; margin: 20px auto 0; text-align: center; color: var(--ink-soft); }
+  .tiers {
+    list-style: none; margin: clamp(40px, 6vw, 72px) 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 40px);
+  }
+  .tier { display: grid; align-content: start; justify-items: start; gap: 10px; }
+  .tier:nth-child(2) { margin-top: clamp(0px, 4vw, 48px); }
+  .tier__pic {
+    position: relative; width: 100%; aspect-ratio: 1; margin-bottom: 8px;
+    transition: transform 0.6s var(--ease-spring);
+  }
+  .tier:hover .tier__pic { transform: translateY(-8px) rotate(-2deg); }
+  .tier__pic :global(img) { position: relative; width: 100%; height: 100%; object-fit: cover; border-radius: 42% 58% 46% 54% / 50% 44% 56% 50%; }
+  .tier__loop { position: absolute; inset: -6%; width: 112%; height: 112%; color: var(--rose); }
+  .tier h3 { font-size: var(--fs-h3); font-weight: 800; letter-spacing: -0.02em; color: var(--berry); }
+  .tier p { color: var(--ink-soft); font-size: 0.95rem; max-width: 32ch; }
+
+  .bento__fill { margin-top: clamp(64px, 9vw, 120px); }
+  .bento__fill-title { font-size: var(--fs-h2); font-weight: 800; line-height: 0.95; letter-spacing: -0.035em; color: var(--berry); }
+  .bento__fill-title span { color: var(--blush); -webkit-text-stroke: 1.5px var(--rose); paint-order: stroke fill; }
+  .bento__grid {
+    list-style: none; margin: clamp(28px, 4vw, 48px) 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(20px, 3vw, 36px) clamp(14px, 2vw, 28px);
+  }
+  .bento__cta { margin-top: clamp(32px, 5vw, 56px); }
+
+  @media (max-width: 900px) { .bento__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 700px) {
+    .tiers { grid-template-columns: 1fr; }
+    .tier { grid-template-columns: 120px 1fr; column-gap: 16px; align-items: center; margin-top: 0 !important; }
+    .tier__pic { grid-row: span 3; margin: 0; }
+    .tier p { grid-column: 2; }
+  }
+</style>
