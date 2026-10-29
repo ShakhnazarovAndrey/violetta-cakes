@@ -2,13 +2,13 @@
 import { site } from '../data/site';
 import SectionTitle from './SectionTitle.astro';
 import Doodle from './Doodle.astro';
-import Decor from './Decor.astro';
 import { Image } from 'astro:assets';
 import work from '../assets/gallery/03-frog.jpg';
+import blue from '../assets/gallery/02-blue-cloud.jpg';
 import heart from '../assets/gallery/01-heart-18.jpg';
 import bento from '../assets/gallery/05-bento-pink.jpg';
 
-const visuals = ['strawberry', heart, bento] as const;
+const visuals = [blue, heart, bento] as const;
 ---
 
 <section class="section about" id="about">
@@ -29,9 +29,7 @@ const visuals = ['strawberry', heart, bento] as const;
           <li class="about__point" data-reveal style={`--i:${i}`}>
             <span class="about__num">{i + 1}</span>
             <div class="about__pic">
-              {visuals[i] === 'strawberry'
-                ? <Decor name="strawberry" class="about__decor" />
-                : <Image src={visuals[i]} alt="" widths={[96, 192]} sizes="96px" />}
+              <Image src={visuals[i]} alt="" widths={[96, 192]} sizes="96px" />
             </div>
             <p>{text}</p>
           </li>
@@ -74,7 +72,6 @@ const visuals = ['strawberry', heart, bento] as const;
     display: grid; place-items: center; font-weight: 700; color: var(--berry); background: var(--milk);
   }
   .about__pic { position: relative; width: 96px; aspect-ratio: 1; }
-  .about__decor { position: static !important; width: 100%; }
   .about__pic :global(img) { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 1.5px solid var(--berry); }
   .about__point p { max-width: 42ch; }
 

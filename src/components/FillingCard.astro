@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import Icon from './Icon.astro';
+import { site } from '../data/site';
 
 interface Props { entry: CollectionEntry<'fillings'>; compact?: boolean; }
 const { entry, compact = false } = Astro.props;
@@ -31,7 +32,8 @@ const kind = data.type === 'бенто' ? 'бенто-торт' : 'торт';
       {data.note && <p class="fmodal__note hand">{data.note}</p>}
       <div class="fmodal__actions">
         <a class="btn" href="#contacts" data-order="wa" data-filling={data.name} data-kind={kind}><Icon name="whatsapp" /> WhatsApp</a>
-        <a class="btn btn--ghost" href="#contacts" data-order="tg" data-filling={data.name} data-kind={kind}><Icon name="telegram" /> Telegram</a>
+        {site.contacts.telegram && <a class="btn btn--ghost" href="#contacts" data-order="tg" data-filling={data.name} data-kind={kind}><Icon name="telegram" /> Telegram</a>}
+        <a class="btn btn--ghost" href={`tel:${site.contacts.phoneLink}`}><Icon name="phone" /> Позвонить</a>
       </div>
     </div>
   </template>

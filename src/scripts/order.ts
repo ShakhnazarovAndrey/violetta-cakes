@@ -27,7 +27,7 @@ document.addEventListener('click', (e) => {
 
   if (link.dataset.order === 'wa') {
     link.href = `https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`;
-  } else if (link.dataset.order === 'tg') {
+  } else if (link.dataset.order === 'tg' && telegram) {
     // в личку Telegram нельзя передать текст, поэтому копируем его в буфер
     link.href = `https://t.me/${telegram}`;
     navigator.clipboard?.writeText(text).then(

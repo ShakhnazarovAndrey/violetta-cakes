@@ -8,7 +8,7 @@ interface Props {
 }
 const {
   title = `${site.name} — ${site.role} · торты на заказ, ${site.city}`,
-  description = `${site.tagline}. Начинки от 1600 ₽/кг, индивидуальный дизайн, доставка.`,
+  description = `${site.tagline}. Бисквитные торты от 3000 ₽/кг, бенто от 1700 ₽, индивидуальный дизайн.`,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url);
@@ -24,7 +24,7 @@ const jsonLd = {
   url: canonical.href,
   telephone: site.contacts.phone,
   address: { '@type': 'PostalAddress', addressLocality: site.city, addressCountry: 'RU' },
-  sameAs: [`https://instagram.com/${site.contacts.instagram}`, `https://t.me/${site.contacts.telegram}`],
+  sameAs: [`https://instagram.com/${site.contacts.instagram}`, ...(site.contacts.telegram ? [`https://t.me/${site.contacts.telegram}`] : [])],
   priceRange: '₽₽',
 };
 ---

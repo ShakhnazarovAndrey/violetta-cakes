@@ -13,8 +13,9 @@ const c = site.contacts;
     <span class="sheet__grip" aria-hidden="true"></span>
     <p class="sheet__title">Где вам удобнее написать?</p>
     <a class="btn" href={`https://wa.me/${c.whatsapp}`} target="_blank" rel="noopener" data-order="wa"><Icon name="whatsapp" /> WhatsApp</a>
-    <a class="btn btn--ghost" href={`https://t.me/${c.telegram}`} target="_blank" rel="noopener" data-order="tg"><Icon name="telegram" /> Telegram</a>
+    {c.telegram && <a class="btn btn--ghost" href={`https://t.me/${c.telegram}`} target="_blank" rel="noopener" data-order="tg"><Icon name="telegram" /> Telegram</a>}
     <a class="btn btn--ghost" href={`https://instagram.com/${c.instagram}`} target="_blank" rel="noopener"><Icon name="instagram" /> Instagram</a>
+    <a class="btn btn--ghost" href={`tel:${c.phoneLink}`}><Icon name="phone" /> Позвонить</a>
     <button type="button" class="sheet__close" data-close>Закрыть</button>
   </div>
 </dialog>

@@ -1,0 +1,97 @@
+---
+import { prices, payment } from '../data/site';
+import SectionTitle from './SectionTitle.astro';
+import Doodle from './Doodle.astro';
+import Decor from './Decor.astro';
+---
+
+<section class="section pricing" id="prices">
+  <div class="container">
+    <SectionTitle solid="Стоимость" ghost="тортов" />
+    <p class="pricing__lead" data-reveal>{prices.note}</p>
+
+    <div class="pricing__grid">
+      <div class="plist" data-reveal>
+        <h3 class="plist__title">{prices.title}</h3>
+        <ul class="plist__rows">
+          {prices.rows.map((row) => (
+            <li class="plist__row">
+              <span class="plist__name">
+                {row.name}
+                {row.hint && <small>({row.hint})</small>}
+              </span>
+              <span class="plist__dots" aria-hidden="true"></span>
+              <span class="plist__price">{row.price}<span> ₽/кг</span></span>
+            </li>
+          ))}
+        </ul>
+        <p class="plist__foot">{prices.footnote}</p>
+        <ul class="plist__terms">
+          {prices.terms.map((t) => <li>{t}</li>)}
+        </ul>
+        <Decor name="strawberry" class="plist__berry" />
+      </div>
+
+      <div class="pay" data-reveal>
+        <h3 class="pay__title">{payment.title}</h3>
+        <ul class="pay__tiers">
+          {payment.tiers.map((t) => (
+            <li class={`tier tier--${t.tone}`}>
+              <span class="tier__when">{t.when}</span>
+              <span class="tier__result">{t.result}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="pay__special">{payment.special}</p>
+        <Doodle variant="squiggle" class="pay__squiggle" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing__lead { margin-top: 16px; max-width: 52ch; color: var(--ink-soft); }
+  .pricing__grid {
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(20px, 3vw, 40px);
+    margin-top: clamp(32px, 5vw, 56px); align-items: start;
+  }
+
+  .plist, .pay {
+    position: relative; border-radius: var(--radius-l); padding: clamp(24px, 4vw, 48px);
+  }
+  .plist { background: var(--milk); border: 1.5px solid var(--line); box-shadow: var(--shadow-soft); }
+  .plist__title, .pay__title { font-size: var(--fs-h3); font-weight: 800; letter-spacing: -0.02em; color: var(--berry); }
+  .plist__rows { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 18px; }
+  .plist__row { display: flex; align-items: baseline; gap: 12px; }
+  .plist__name { font-size: clamp(1.05rem, 1.6vw, 1.25rem); font-weight: 500; }
+  .plist__name small { display: block; font-size: 0.8rem; color: var(--ink-soft); font-weight: 400; }
+  .plist__dots { flex: 1; min-width: 16px; border-bottom: 2px dotted var(--rose); transform: translateY(-4px); }
+  .plist__price { font-size: clamp(1.25rem, 2.2vw, 1.7rem); font-weight: 800; letter-spacing: -0.02em; color: var(--berry); white-space: nowrap; }
+  .plist__price span { font-size: 0.72em; font-weight: 600; color: var(--ink-soft); }
+  .plist__foot { margin-top: 26px; font-size: 0.9rem; color: var(--ink-soft); }
+  .plist__terms { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .plist__terms li { padding: 0.4em 1em; border: 1.5px solid var(--berry); border-radius: 999px; font-weight: 600; font-size: 0.9rem; color: var(--berry); }
+  .plist :global(.plist__berry) { width: 70px; right: 22px; top: -26px; transform: rotate(18deg); }
+
+  .pay { background: var(--blush); }
+  .pay__tiers { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 12px; }
+  .tier { display: grid; gap: 2px; padding: 16px 20px; border-radius: var(--radius-m); background: var(--milk); border: 1.5px solid transparent; }
+  .tier__when { font-size: 0.9rem; color: var(--ink-soft); }
+  .tier__result { font-weight: 800; font-size: 1.15rem; letter-spacing: -0.015em; color: var(--berry); }
+  .tier--good { border-color: #7aa56a; }
+  .tier--mid { border-color: #e0a14a; }
+  .tier--bad { border-color: var(--berry); }
+  .pay__special {
+    margin-top: 18px; padding: 16px 20px; border-radius: var(--radius-m);
+    background: var(--berry); color: var(--milk); font-weight: 600; line-height: 1.4;
+  }
+  .pay :global(.pay__squiggle) { width: 110px; height: 30px; margin-top: 18px; color: var(--rose); }
+
+  @media (max-width: 860px) { .pricing__grid { grid-template-columns: 1fr; } }
+  @media (max-width: 520px) {
+    .plist__row { flex-wrap: wrap; }
+    .plist__dots { display: none; }
+    .plist__price { margin-left: auto; }
+    .plist__name { flex: 1 1 60%; }
+  }
+</style>
