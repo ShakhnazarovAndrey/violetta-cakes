@@ -45,6 +45,7 @@ const year = new Date().getFullYear();
       <span>© {year} {site.brand} Cake · {site.role}</span>
       <a href="#top">наверх ↑</a>
     </div>
+    <p class="credit">Design &amp; development by AndreySH</p>
   </div>
 </footer>
 
@@ -93,10 +94,11 @@ const year = new Date().getFullYear();
     padding: 28px 4px 8px; font-size: var(--fs-small); color: var(--ink-soft);
   }
   .footer a { color: var(--berry); text-decoration: none; }
+  .credit { margin: 0; padding: 4px 4px 8px; text-align: center; font-size: 0.75rem; letter-spacing: 0.04em; color: var(--ink-soft); opacity: 0.8; }
 
   @media (max-width: 600px) {
     .contacts__berry--1 { top: 2%; left: 4%; width: 44px; }
     .cbtn { width: 100%; min-width: 0; }
-    .footer { padding-bottom: 96px; }
+    .credit { padding-bottom: 96px; }
   }
 </style>
