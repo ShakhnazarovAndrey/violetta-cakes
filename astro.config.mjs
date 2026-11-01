@@ -10,4 +10,6 @@ export default defineConfig({
   integrations: [sitemap()],
   // scope-класс родителя пробрасывается через проп class в дочерние компоненты
   scopedStyleStrategy: 'class',
+  // чёрная панель Astro внизу экрана при локальном запуске; на опубликованном сайте её и так нет
+  devToolbar: { enabled: false },
 });
