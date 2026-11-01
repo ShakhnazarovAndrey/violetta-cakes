@@ -11,9 +11,11 @@ export const site = {
   url: 'https://violetta-cakes.vercel.app',
 
   contacts: {
-    telegram: '', // ник без @; пока не известен — кнопки Telegram скрыты, пока поле пустое
-    whatsapp: '79510086950', // номер только цифрами
-    instagram: 'violetta_cake',
+    // заказы принимаются в Telegram-канале
+    telegram: 'violettacakee',
+    telegramUrl: 'https://t.me/violettacakee',
+    instagram: 'violetta_cake_',
+    instagramUrl: 'https://www.instagram.com/violetta_cake_/',
     phone: '+7 951 008-69-50',
     phoneLink: '+79510086950',
   },
@@ -31,7 +33,7 @@ export const site = {
   steps: [
     { title: 'Выберите начинку', text: 'Посмотрите меню начинок ниже. Если сомневаетесь — помогу подобрать.' },
     { title: 'Рассчитайте вес', text: '200 г на одного человека — тогда хватит по одному кусочку каждому.' },
-    { title: 'Напишите мне', text: 'В WhatsApp или Instagram (можно позвонить): дата, вес, начинка и пожелания по декору.' },
+    { title: 'Напишите мне', text: 'В Telegram или Instagram (можно позвонить): дата, вес, начинка и пожелания по декору.' },
     { title: 'Согласуем дизайн', text: 'Обсудим референсы, внесёте предоплату — и я бронирую дату.' },
   ],
 

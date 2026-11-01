@@ -26,7 +26,7 @@ const jsonLd = {
   url: canonical.href,
   telephone: site.contacts.phone,
   address: { '@type': 'PostalAddress', addressLocality: site.city, addressCountry: 'RU' },
-  sameAs: [`https://instagram.com/${site.contacts.instagram}`, ...(site.contacts.telegram ? [`https://t.me/${site.contacts.telegram}`] : [])],
+  sameAs: [site.contacts.instagramUrl, site.contacts.telegramUrl],
   priceRange: '₽₽',
 };
 ---
@@ -75,7 +75,6 @@ const jsonLd = {
     <slot />
     <div class="toast" role="status" aria-live="polite" data-toast></div>
     <script>
-      import '../scripts/order.ts';
       import '../scripts/ui.ts';
       import '../scripts/animations.ts';
     </script>

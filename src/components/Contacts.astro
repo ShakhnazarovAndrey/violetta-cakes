@@ -23,15 +23,10 @@ const year = new Date().getFullYear();
       <p class="contacts__lead">Напишите дату, вес и начинку — отвечу в течение пары часов и помогу со всеми деталями.</p>
 
       <div class="contacts__buttons">
-        <a class="cbtn" href={`https://wa.me/${c.whatsapp}`} target="_blank" rel="noopener" data-order="wa">
-          <Icon name="whatsapp" /><span><b>WhatsApp</b><small>{c.phone}</small></span>
+        <a class="cbtn" href={c.telegramUrl} target="_blank" rel="noopener">
+          <Icon name="telegram" /><span><b>Telegram</b><small>@{c.telegram}</small></span>
         </a>
-        {c.telegram && (
-          <a class="cbtn" href={`https://t.me/${c.telegram}`} target="_blank" rel="noopener" data-order="tg">
-            <Icon name="telegram" /><span><b>Telegram</b><small>@{c.telegram}</small></span>
-          </a>
-        )}
-        <a class="cbtn" href={`https://instagram.com/${c.instagram}`} target="_blank" rel="noopener">
+        <a class="cbtn" href={c.instagramUrl} target="_blank" rel="noopener">
           <Icon name="instagram" /><span><b>Instagram</b><small>@{c.instagram}</small></span>
         </a>
         <a class="cbtn" href={`tel:${c.phoneLink}`}>

@@ -18,7 +18,7 @@ const products = (await getCollection('products')).sort((a, b) => a.data.order -
           <a class="product__link" href={data.link}>
             <span class="product__pic">
               <Doodle variant="loop" class="product__loop" />
-              <Image src={data.image} alt={data.name} widths={[360, 560, 800]} sizes="(max-width: 700px) 90vw, 380px" style={data.link === '#desserts' ? 'object-position: 90% 50%' : undefined} />
+              <Image src={data.image} alt={data.name} widths={[360, 560, 800]} sizes="(max-width: 700px) 90vw, 380px" />
               <span class="price-badge product__badge">{data.badge}</span>
             </span>
             <h3>{data.name}</h3>

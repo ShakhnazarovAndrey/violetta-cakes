@@ -1,6 +1,5 @@
 ---
 name: 'Cake to go'
-orderAs: 'торт в стаканчике'
 image: '../../assets/desserts/cake-to-go.jpg'
 price: '750 ₽/шт'
 priceNote: 'Торт в стаканчике, который удобно взять с собой. Заказ от 2 штук.'

@@ -1,8 +1,6 @@
 ---
 name: 'Трайфлы'
-orderAs: 'трайфлы'
 image: '../../assets/desserts/trifle.jpg'
-focus: '88% 50%'
 tiers:
   - { qty: '4 шт', price: '2500 ₽' }
   - { qty: '6 шт', price: '3000 ₽' }

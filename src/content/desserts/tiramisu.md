@@ -1,8 +1,6 @@
 ---
 name: 'Тирамису'
-orderAs: 'тирамису'
 image: '../../assets/desserts/tiramisu.jpg'
-focus: '50% 40%'
 price: '2900 ₽/кг'
 priceNote: 'Заказ от 2 кг.'
 groups:

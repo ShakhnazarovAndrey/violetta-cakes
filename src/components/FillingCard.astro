@@ -35,8 +35,7 @@ const note = data.note ?? base?.data.note;
       {description && <p class="fmodal__short">{description}</p>}
       {note && <p class="fmodal__note hand">{note}</p>}
       <div class="fmodal__actions">
-        <a class="btn" href="#contacts" data-order="wa" data-filling={data.name} data-kind={kind}><Icon name="whatsapp" /> WhatsApp</a>
-        {site.contacts.telegram && <a class="btn btn--ghost" href="#contacts" data-order="tg" data-filling={data.name} data-kind={kind}><Icon name="telegram" /> Telegram</a>}
+        <a class="btn" href={site.contacts.telegramUrl} target="_blank" rel="noopener"><Icon name="telegram" /> Заказать в Telegram</a>
         <a class="btn btn--ghost" href={`tel:${site.contacts.phoneLink}`}><Icon name="phone" /> Позвонить</a>
       </div>
     </div>

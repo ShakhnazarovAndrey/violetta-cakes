@@ -1,6 +1,5 @@
 ---
 name: 'Капкейки'
-orderAs: 'капкейки'
 image: '../../assets/desserts/cupcakes.jpg'
 tiers:
   - { qty: '4 шт', price: '2200 ₽' }

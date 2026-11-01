@@ -37,9 +37,7 @@ const desserts = defineCollection({
   schema: ({ image }) =>
     z.object({
       name: z.string(),
-      orderAs: z.string(), // как писать в сообщении заказа: «Хочу заказать …»
       image: image(),
-      focus: z.string().default('50% 50%'), // object-position для обрезки фото
       price: z.string().optional(),
       priceNote: z.string().optional(),
       tiers: z.array(z.object({ qty: z.string(), price: z.string() })).default([]),

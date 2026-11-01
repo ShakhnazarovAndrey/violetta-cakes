@@ -18,7 +18,7 @@ const bg = await getImage({ src: cream, format: 'webp', width: 1200, quality: 72
 
       <div class="hero__top">
         <span class="hero__meta">{site.role} · {site.city}</span>
-        <a href="#contacts" class="btn hero__cta-top">Заказать</a>
+        <a href={site.contacts.telegramUrl} target="_blank" rel="noopener" class="btn hero__cta-top">Заказать</a>
       </div>
 
       <h1 class="hero__word" aria-label={`${site.brand} — ${site.role}`}>
@@ -36,7 +36,7 @@ const bg = await getImage({ src: cream, format: 'webp', width: 1200, quality: 72
           <p class="hero__tagline">{site.tagline}</p>
           <div class="hero__actions">
             <a href="#fillings" class="btn">Выбрать начинку <Icon name="arrow" /></a>
-            <a href="#contacts" class="btn btn--ghost">Написать мне</a>
+            <a href={site.contacts.telegramUrl} target="_blank" rel="noopener" class="btn btn--ghost">Написать мне</a>
           </div>
         </div>
         <div class="hero__visual" data-hero-visual>

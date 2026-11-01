@@ -33,7 +33,7 @@ $$('[data-open-filling]').forEach((btn) =>
 );
 // клик «написать» внутри модалки закрывает её
 fContent?.addEventListener('click', (e) => {
-  if ((e.target as HTMLElement).closest('a[data-order]') && fDialog) setTimeout(() => closeDialog(fDialog), 200);
+  if ((e.target as HTMLElement).closest('a') && fDialog) setTimeout(() => closeDialog(fDialog), 200);
 });
 
 // лайтбокс галереи
@@ -86,11 +86,6 @@ $('[data-carousel-next]')?.addEventListener('click', () => step(1));
 
 // мобильная липкая кнопка: видна после hero и прячется у контактов
 const sticky = $('[data-sticky]');
-const sheet = $<HTMLDialogElement>('[data-sheet]');
-$('[data-open-sheet]')?.addEventListener('click', () => sheet && openDialog(sheet));
-sheet?.addEventListener('click', (e) => {
-  if ((e.target as HTMLElement).closest('a')) setTimeout(() => closeDialog(sheet), 200);
-});
 if (sticky) {
   const state = { hero: true, contacts: false };
   const io = new IntersectionObserver((entries) => {
