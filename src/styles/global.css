@@ -1,5 +1,14 @@
 @import './tokens.css';
 
+/* Подпись под логотипом (Gilroy Light) */
+@font-face {
+  font-family: 'Gilroy';
+  src: url('../assets/fonts/gilroy-light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Шрифт логотипа (надпись VIOLETTA в hero) */
 @font-face {
   font-family: 'Uncage';

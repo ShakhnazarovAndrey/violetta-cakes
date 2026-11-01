@@ -25,6 +25,8 @@ const bg = await getImage({ src: cream, format: 'webp', width: 1200, quality: 72
         {letters.map((l, i) => <span class="hero__letter" style={`--i:${i}`} aria-hidden="true">{l}</span>)}
       </h1>
 
+      <p class="hero__sub">торты и десерты на заказ в {site.cityIn}</p>
+
       <nav class="hero__nav" aria-label="Разделы">
         {nav.map((n) => <a href={n.href}>{n.label}</a>)}
       </nav>
@@ -62,7 +64,7 @@ const bg = await getImage({ src: cream, format: 'webp', width: 1200, quality: 72
       var(--pearl);
     border: 1.5px solid var(--line);
     padding: clamp(16px, 3vw, 36px) clamp(16px, 3.5vw, 48px) clamp(28px, 4vw, 56px);
-    min-height: min(92svh, 860px);
+    min-height: min(88svh, 820px);
     container-type: inline-size;
     display: flex;
     flex-direction: column;
@@ -87,11 +89,25 @@ const bg = await getImage({ src: cream, format: 'webp', width: 1200, quality: 72
   }
   .hero__letter { display: inline-block; transform-origin: 50% 100%; }
 
+  /* подпись под логотипом: тот же цвет, шрифт Gilroy */
+  .hero__sub {
+    position: relative; z-index: 2;
+    margin-top: clamp(8px, 1.2cqw, 16px);
+    font-family: var(--font-logo-sub);
+    font-weight: 300;
+    font-size: clamp(1.05rem, 3.1cqw, 2.4rem);
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+    text-align: center;
+    color: var(--berry);
+    text-wrap: balance;
+  }
+
   .hero__nav {
     position: relative; z-index: 2;
     display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 18px;
-    margin-top: clamp(14px, 2vw, 24px);
-    padding-top: 12px;
+    margin-top: clamp(10px, 1.4vw, 18px);
+    padding-top: 10px;
     border-top: 1.5px solid var(--line);
     font-size: 0.95rem;
   }
@@ -106,12 +122,12 @@ const bg = await getImage({ src: cream, format: 'webp', width: 1200, quality: 72
     position: relative; z-index: 2;
     margin-top: auto;
     display: grid; grid-template-columns: 1.1fr 1fr; align-items: end; gap: 24px;
-    padding-top: 24px;
+    padding-top: 10px;
   }
   .hero__tagline { font-size: clamp(1.15rem, 2vw, 1.55rem); line-height: 1.35; max-width: 30ch; color: var(--ink); font-weight: 500; }
   .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 
-  .hero__visual { position: relative; justify-self: end; width: min(100%, clamp(240px, 23vw, 310px)); margin-top: 28px; }
+  .hero__visual { position: relative; justify-self: end; width: min(100%, clamp(230px, 21vw, 290px)); margin-top: 12px; }
   .hero__visual :global(.hero__photo) {
     position: relative; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 35% 30%;
     border-radius: 46% 54% 32px 32px / 34% 34% 32px 32px;
@@ -119,7 +135,7 @@ const bg = await getImage({ src: cream, format: 'webp', width: 1200, quality: 72
     transform: rotate(2deg);
   }
   .hero__frame-loop { position: absolute; inset: -8% -10% -4% -8%; width: 118%; height: 112%; color: var(--rose); }
-  .hero__note { position: absolute; top: 40px; left: -150px; font-size: 1.7rem; color: var(--berry); transform: rotate(-8deg); }
+  .hero__note { position: absolute; top: 40px; left: -208px; font-size: 1.7rem; color: var(--berry); transform: rotate(-8deg); }
   .hero__note-arrow { position: absolute; top: 76px; left: -64px; width: 70px; height: 54px; }
 
 

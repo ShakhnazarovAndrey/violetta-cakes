@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { site } from '../data/site';
 import logoFont from '../assets/fonts/uncage-bold.woff2?url';
+import logoSubFont from '../assets/fonts/gilroy-light.woff2?url';
 
 interface Props {
   title?: string;
@@ -50,6 +51,7 @@ const jsonLd = {
     <meta property="og:image" content={new URL(`${base}og.png`, Astro.site ?? site.url)} />
 
     <link rel="preload" href={logoFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={logoSubFont} as="font" type="font/woff2" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
