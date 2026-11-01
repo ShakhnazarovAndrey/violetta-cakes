@@ -1,5 +1,14 @@
 @import './tokens.css';
 
+/* Шрифт логотипа (надпись VIOLETTA в hero) */
+@font-face {
+  font-family: 'Uncage';
+  src: url('../assets/fonts/uncage-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 *,
 *::before,
 *::after { box-sizing: border-box; }
@@ -88,7 +97,7 @@ dialog {
   border: 0; padding: 0; background: transparent; color: inherit;
   max-width: none; max-height: none;
 }
-dialog::backdrop { background: rgba(74, 22, 38, 0.45); backdrop-filter: blur(6px); }
+dialog::backdrop { background: rgba(58, 18, 18, 0.5); backdrop-filter: blur(6px); }
 
 /* тост */
 .toast {

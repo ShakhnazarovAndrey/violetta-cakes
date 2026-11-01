@@ -1,18 +1,20 @@
 :root {
-  /* палитра */
-  --berry: #8e1b3a;
-  --berry-deep: #6a0f27;
-  --rose: #e48ba4;
-  --rose-soft: #f2b8c6;
-  --blush: #f8dfe4;
-  --cream: #fbf5ee;
-  --milk: #fffdf9;
-  --ink: #4a1626;
-  --ink-soft: #7d4a58;
-  --line: rgba(142, 27, 58, 0.22);
+  /* палитра: Pantone 4975 C Red Inferno, 3519 C, 12-1006 TCX Mother of Pearl */
+  --berry: #4e0000;
+  --berry-deep: #330000;
+  --rose: #e1a6ad;
+  --rose-soft: #edc5ca;
+  --blush: #f6e3e2;
+  --pearl: #e9d4c3;
+  --cream: #f7eee8;
+  --milk: #fffbf8;
+  --ink: #3a1212;
+  --ink-soft: #7b4a45;
+  --line: rgba(78, 0, 0, 0.2);
 
   /* типографика */
   --font-sans: 'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-logo: 'Uncage', 'Onest', system-ui, sans-serif;
   --font-hand: 'Caveat', 'Comic Sans MS', cursive;
   --fs-display: clamp(3.6rem, 15vw, 13rem);
   --fs-h2: clamp(2.2rem, 6vw, 4.6rem);
@@ -26,8 +28,8 @@
   --radius-s: 14px;
   --radius-m: 24px;
   --radius-l: 40px;
-  --shadow-soft: 0 18px 40px -22px rgba(106, 15, 39, 0.35);
-  --shadow-lift: 0 30px 60px -28px rgba(106, 15, 39, 0.45);
+  --shadow-soft: 0 18px 40px -22px rgba(78, 0, 0, 0.3);
+  --shadow-lift: 0 30px 60px -28px rgba(78, 0, 0, 0.42);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }

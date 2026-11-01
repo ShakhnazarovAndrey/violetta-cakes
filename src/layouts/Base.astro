@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { site } from '../data/site';
+import logoFont from '../assets/fonts/uncage-bold.woff2?url';
 
 interface Props {
   title?: string;
@@ -37,7 +38,7 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#fbf5ee" />
+    <meta name="theme-color" content="#f7eee8" />
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
@@ -48,6 +49,7 @@ const jsonLd = {
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={new URL(`${base}og.png`, Astro.site ?? site.url)} />
 
+    <link rel="preload" href={logoFont} as="font" type="font/woff2" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

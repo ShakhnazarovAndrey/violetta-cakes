@@ -95,6 +95,7 @@ const berries: Berry[] = [
     border: 1.5px solid var(--line);
     padding: clamp(16px, 3vw, 36px) clamp(16px, 3.5vw, 48px) clamp(28px, 4vw, 56px);
     min-height: min(92svh, 860px);
+    container-type: inline-size;
     display: flex;
     flex-direction: column;
   }
@@ -110,10 +111,13 @@ const berries: Berry[] = [
     position: relative; z-index: 2;
     display: flex; justify-content: space-between;
     margin-top: clamp(20px, 3.4vw, 44px);
-    font-size: var(--fs-display);
-    font-weight: 900;
-    line-height: 0.82;
-    letter-spacing: -0.06em;
+    font-family: var(--font-logo);
+    font-size: clamp(3.2rem, 15vw, 13rem);
+    /* слово занимает ровно всю ширину карточки (5,26 em — ширина VIOLETTA в этом шрифте) */
+    font-size: calc(100cqw / 5.32);
+    font-weight: 700;
+    line-height: 0.78;
+    letter-spacing: 0;
     color: var(--berry);
   }
   .hero__letter { display: inline-block; transform-origin: 50% 100%; }
@@ -157,6 +161,7 @@ const berries: Berry[] = [
 
   @media (max-width: 820px) {
     .hero__card { min-height: auto; }
+    .hero__word { margin-top: 40px; }
     .hero__meta, .hero__doodle--a { display: none; }
     .hero__nav { justify-content: flex-start; font-size: 0.9rem; }
     .hero__bottom { grid-template-columns: 1fr; padding-top: 28px; }
