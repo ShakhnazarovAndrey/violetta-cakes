@@ -6,7 +6,8 @@ import cream from '../assets/cream-bg.jpg';
 import portrait from '../assets/portrait.jpg';
 import Icon from './Icon.astro';
 
-const letters = site.brand.toUpperCase().split('');
+// «VIOLETTA CAKE» — два слова, каждое из букв для анимации
+const words = [site.brand.toUpperCase(), 'CAKE'].map((w) => w.split(''));
 
 // Фон hero — фото крема (цвет подтянут к Mother of Pearl)
 const bg = await getImage({ src: cream, format: 'webp', width: 1200, quality: 72 });
@@ -21,8 +22,12 @@ const bg = await getImage({ src: cream, format: 'webp', width: 1200, quality: 72
         <a href={site.contacts.telegramUrl} target="_blank" rel="noopener" class="btn hero__cta-top">Заказать</a>
       </div>
 
-      <h1 class="hero__word" aria-label={`${site.brand} — ${site.role}`}>
-        {letters.map((l, i) => <span class="hero__letter" style={`--i:${i}`} aria-hidden="true">{l}</span>)}
+      <h1 class="hero__word" aria-label={`${site.brand} Cake — ${site.role}`}>
+        {words.map((w, wi) => (
+          <span class="hero__w" aria-hidden="true">
+            {w.map((l, i) => <span class="hero__letter" style={`--i:${i + wi * 8}`}>{l}</span>)}
+          </span>
+        ))}
       </h1>
 
       <p class="hero__sub">торты и десерты на заказ в {site.cityIn}</p>
@@ -80,13 +85,14 @@ const bg = await getImage({ src: cream, format: 'webp', width: 1200, quality: 72
     margin-top: clamp(20px, 3.4vw, 44px);
     font-family: var(--font-logo);
     font-size: clamp(3.2rem, 15vw, 13rem);
-    /* слово занимает ровно всю ширину карточки (5,26 em — ширина VIOLETTA в этом шрифте) */
-    font-size: calc(100cqw / 5.32);
+    /* «VIOLETTA CAKE» в одну строку на всю ширину карточки: 5,26 + 0,4 + 2,82 em в этом шрифте */
+    font-size: calc(100cqw / 8.56);
     font-weight: 700;
     line-height: 0.78;
     letter-spacing: 0;
     color: var(--berry);
   }
+  .hero__w { display: flex; }
   .hero__letter { display: inline-block; transform-origin: 50% 100%; }
 
   /* подпись под логотипом: тот же цвет, шрифт Gilroy */
@@ -141,7 +147,8 @@ const bg = await getImage({ src: cream, format: 'webp', width: 1200, quality: 72
 
   @media (max-width: 820px) {
     .hero__card { min-height: auto; }
-    .hero__word { margin-top: 40px; }
+    .hero__word { margin-top: 40px; flex-direction: column; row-gap: 0.14em; font-size: calc(100cqw / 5.32); }
+    .hero__w:last-child { align-self: flex-end; }
     .hero__meta { display: none; }
     .hero__nav { justify-content: flex-start; font-size: 0.9rem; }
     .hero__bottom { grid-template-columns: 1fr; padding-top: 28px; }
