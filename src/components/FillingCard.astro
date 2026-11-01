@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
+import { getEntry, type CollectionEntry } from 'astro:content';
 import Icon from './Icon.astro';
 import { site } from '../data/site';
 
@@ -8,6 +8,10 @@ interface Props { entry: CollectionEntry<'fillings'>; compact?: boolean; }
 const { entry, compact = false } = Astro.props;
 const { id, data } = entry;
 const kind = data.type === 'бенто' ? 'бенто-торт' : 'торт';
+// состав у бенто и торта с одним названием одинаковый — описание берём у торта
+const base = data.sameAs ? await getEntry('fillings', data.sameAs) : undefined;
+const description = data.description ?? base?.data.description;
+const note = data.note ?? base?.data.note;
 ---
 
 <li class:list={['filling', { 'filling--compact': compact }]} data-reveal>
@@ -17,8 +21,8 @@ const kind = data.type === 'бенто' ? 'бенто-торт' : 'торт';
       <Image src={data.image} alt={`Срез начинки «${data.name}»`} widths={[240, 420, 648]} sizes={compact ? '(max-width: 700px) 45vw, 280px' : '(max-width: 700px) 70vw, 300px'} />
     </span>
     {compact && <span class="filling__title">{data.name}</span>}
-    {data.description && <span class="filling__short">{data.description}</span>}
-    <span class="filling__more">{compact ? 'заказать' : 'подробнее'} <Icon name="plus" /></span>
+    {description && <span class="filling__short">{description}</span>}
+    <span class="filling__more">подробнее <Icon name="plus" /></span>
   </button>
 
   <template data-filling-tpl={id}>
@@ -28,8 +32,8 @@ const kind = data.type === 'бенто' ? 'бенто-торт' : 'торт';
     <div class="fmodal__body">
       <span class="fmodal__cat">{data.type === 'бенто' ? 'начинка для бенто' : 'начинка для торта'}</span>
       <h3 class="fmodal__title">{data.name}</h3>
-      {data.description && <p class="fmodal__short">{data.description}</p>}
-      {data.note && <p class="fmodal__note hand">{data.note}</p>}
+      {description && <p class="fmodal__short">{description}</p>}
+      {note && <p class="fmodal__note hand">{note}</p>}
       <div class="fmodal__actions">
         <a class="btn" href="#contacts" data-order="wa" data-filling={data.name} data-kind={kind}><Icon name="whatsapp" /> WhatsApp</a>
         {site.contacts.telegram && <a class="btn btn--ghost" href="#contacts" data-order="tg" data-filling={data.name} data-kind={kind}><Icon name="telegram" /> Telegram</a>}
@@ -74,6 +78,10 @@ const kind = data.type === 'бенто' ? 'бенто-торт' : 'торт';
   .filling--compact .filling__btn:hover .filling__pic { border-radius: var(--radius-m); transform: translateY(-6px); }
   .filling__title { grid-column: 1; font-weight: 800; letter-spacing: -0.02em; color: var(--berry); font-size: 1.1rem; line-height: 1.15; }
   .filling--compact .filling__short, .filling--compact .filling__more { grid-column: 1; }
+  .filling--compact .filling__short {
+    font-size: 0.85rem; line-height: 1.4;
+    display: -webkit-box; -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+  }
 
   @media (max-width: 560px) {
     .filling__btn { grid-template-columns: 1fr; gap: 8px; }

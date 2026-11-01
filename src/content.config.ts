@@ -10,6 +10,8 @@ const fillings = defineCollection({
       type: z.enum(['торт', 'бенто']),
       description: z.string().optional(),
       note: z.string().optional(),
+      // id начинки для торта с тем же составом: описание берётся оттуда
+      sameAs: z.string().optional(),
       image: image(),
       order: z.number().default(100),
     }),
