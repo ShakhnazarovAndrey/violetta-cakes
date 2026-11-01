@@ -31,6 +31,25 @@ const products = defineCollection({
     }),
 });
 
+// Остальные десерты: цены, наборы, начинки
+const desserts = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/desserts' }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      orderAs: z.string(), // как писать в сообщении заказа: «Хочу заказать …»
+      image: image(),
+      focus: z.string().default('50% 50%'), // object-position для обрезки фото
+      price: z.string().optional(),
+      priceNote: z.string().optional(),
+      tiers: z.array(z.object({ qty: z.string(), price: z.string() })).default([]),
+      tiersNote: z.string().optional(),
+      groups: z.array(z.object({ title: z.string(), items: z.array(z.string()) })).default([]),
+      notes: z.array(z.string()).default([]),
+      order: z.number().default(100),
+    }),
+});
+
 const reviews = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/reviews' }),
   schema: ({ image }) =>
@@ -52,4 +71,4 @@ const faq = defineCollection({
   }),
 });
 
-export const collections = { fillings, products, reviews, faq };
+export const collections = { fillings, products, desserts, reviews, faq };

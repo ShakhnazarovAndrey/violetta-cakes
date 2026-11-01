@@ -44,6 +44,7 @@ export const nav = [
   { href: '#fillings', label: 'начинки' },
   { href: '#prices', label: 'цены' },
   { href: '#bento', label: 'бенто' },
+  { href: '#desserts', label: 'десерты' },
   { href: '#works', label: 'работы' },
   { href: '#how', label: 'как заказать' },
   { href: '#reviews', label: 'отзывы' },

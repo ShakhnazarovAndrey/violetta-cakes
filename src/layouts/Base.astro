@@ -10,7 +10,7 @@ interface Props {
 }
 const {
   title = `${site.name} — ${site.role} · торты на заказ, ${site.city}`,
-  description = `${site.tagline}. Бисквитные торты от 3000 ₽/кг, бенто от 1900 ₽, индивидуальный дизайн.`,
+  description = `${site.tagline}. Бисквитные торты от 3000 ₽/кг, бенто от 1900 ₽, трайфлы, капкейки, кейкпопсы и другие десерты.`,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url);
